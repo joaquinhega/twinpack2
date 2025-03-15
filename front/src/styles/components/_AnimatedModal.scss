@@ -1,0 +1,112 @@
+
+
+.modal {
+  background: white;
+  width: 98%;
+  margin: 1%;
+  height: 98vh;
+  min-height: 98vh;
+
+  overflow-y: hidden;
+  border-radius: 10px;
+  overflow-y: auto;
+
+  &_image {
+    &_pami {
+      position: absolute;
+      right: 2%;
+      top: 15%;
+      width: 100px;
+    }
+    &_close {
+      position: absolute;
+      top: 3%;
+      left: 95%;
+      cursor: pointer;
+    }
+  }
+}
+
+.paper {
+  background: white;
+  padding: 50px 5%;
+  outline: none;
+  height: 100%;
+}
+.half_paper_left{
+  margin-left: 20px;
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.half_paper_right{
+  width: 58%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.pp_detalle{
+  margin: 5px 10px 5px 5px;
+  vertical-align: top;
+}
+
+.pp_status{
+  width: 35%;
+}
+
+.pp_status_date{
+  background:transparent;
+  border: none;
+}
+
+.pp_status_obs{
+  width: 50%;
+  resize: none;
+  background:transparent;
+  padding-top: 5px;
+  border: none;
+  min-height: 30px;
+}
+
+.label_status{
+  display: inline-block;
+  margin: 0px 10px;
+  color: black;
+}
+
+.radio_status{
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border:solid 1px $colorSecundario;
+  margin-left: -12px;
+}
+
+.div_status{
+  border-left: solid 4px $colorSecundario;
+  width: 100%;
+  padding: 8px 0px;
+  display: inline-block;
+}
+
+.icon_edit{
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+  color: rgb(80,80,80);
+  float: right;
+}
+
+.file_edit{
+  cursor: pointer;
+}
+.graph{
+  width: 100%;
+  height: 100%;
+  margin-left: 150px;
+  padding: 0px;
+}

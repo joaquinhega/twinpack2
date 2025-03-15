@@ -1,0 +1,35 @@
+export const users = [
+    {
+        id:1,
+        nombre: "Juan Pedro",
+        mail: "juan@gmail.com",
+        empresa: "Chandon",
+        razon_social: "Chandon S.A.",
+        tipo: "cliente",
+        tipo_id: 2,
+        tercero: "Chandon S.A.",
+        activo: "1",
+    },
+    {
+        id:2,
+        nombre: "Marta Sanchez",
+        mail: "marta@gmail.com",
+        empresa: "Peñaflor",
+        razon_social: "Bodegas Peñaflor S.A.",
+        tipo: "cliente",
+        tipo_id: 2,
+        tercero: "Peñaflor S.A.",
+        activo: "0",
+    },
+    {
+        id:3,
+        nombre: "María Alvarez",
+        mail: "maria@gmail.com",
+        empresa: "Etiquetas",
+        razon_social: "Etiquetas sociedad anonima",
+        tipo: "proveedor",
+        tipo_id: 3,
+        tercero: "Etiquetas S.A.",
+        activo: "1",
+    }
+]

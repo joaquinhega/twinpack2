@@ -1,0 +1,143 @@
+
+
+/*  Remember that there is this !important   */
+td[data-title="Producto"],
+td[data-title="proveedor"]{
+  text-align: left !important;
+}
+
+td[data-title="Descuento Público"],
+td[data-title="Estado"],
+td[data-title="Precio"],
+td[data-title="Precio Con Descuento"]{
+  text-align: center !important;
+}
+
+td[data-title="Estado"]{
+  white-space: nowrap;
+}
+.product {
+  
+  cursor: pointer;
+
+  &_image {
+
+    &_status {
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      color: rgb(80,80,80);
+    }
+
+    &_edit {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      transform: translateY(3px) translateX(4px);
+    }
+  }
+
+
+  &_quantity{
+    display: flex;
+    justify-content: center;
+
+    & button{
+      background-color: transparent;
+      border: none;
+
+    }
+
+    & input {
+      width: 80%;
+      text-align: center;
+    }
+
+    &_cancel{
+      position: relative;
+    }
+
+    &_pending{
+      position: relative;
+    }
+
+    &_check{
+      position: relative;
+    }
+
+    &_cancel svg {
+      fill: red;
+    }
+
+    &_pending svg{
+      fill: yellow;
+    }
+    &_check svg{
+      fill: limegreen;
+    }
+  }
+
+}
+
+.product:hover{
+  border-top: solid 2px $colorPrincipal;
+  border-bottom: solid 2px $colorPrincipal;
+}
+
+
+@media screen and (max-width: 770px){
+  .product{
+    & td[data-title="Cantidad"]{
+      display: flex;
+      align-items: center;
+    }
+
+    &_image_edit {
+      transform: translateY(2.8px) translateX(4px);
+    }
+
+    &_quantity{
+      justify-content: flex-end;
+      width: 100%;
+
+      & input {
+        width: 25%;
+      }
+
+
+      &_cancel svg {
+        width: 40px;
+        height: 20px;
+      }
+      &_pending svg{
+        width: 40px;
+        height: 20px;
+      }
+      &_check svg{
+        width: 40px;
+        height: 20px;
+      }
+    }
+
+    & td:nth-of-type(4):before{
+
+    }
+
+
+  }
+
+
+  td[data-title="Producto"],
+  td[data-title="proveedor"]{
+    text-align: end !important;
+  }
+
+
+  td[data-title="Descuento Público"],
+  td[data-title="Estado"],
+  td[data-title="Precio"],
+  td[data-title="Precio Con Descuento"]{
+    text-align: end !important;
+  }
+}

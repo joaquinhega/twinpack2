@@ -1,0 +1,82 @@
+.presupuesto__section {
+    padding-top: 12px;
+    background-color: white;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .container-presupuesto {
+    padding: 0 20%;
+    text-align: center;
+    margin: 5px 3%;
+  }
+  
+  .presupuesto__title {
+    text-align: center;
+    font-weight: 100;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .presupuesto__subtitle {
+    text-align: center;
+    font-weight: 100;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .div-cliente-presupuesto {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 11px 0;
+    font-size: 20px;
+  }
+  
+  .row_input {
+    border: none;
+    vertical-align: bottom;
+    border-bottom: solid 1px #999;
+    width: 50%;
+    resize: none;
+    background-color: white;
+    font-size: 16px;
+    padding: 5px;
+  }
+  
+  .textarea_input {
+    border: none;
+    vertical-align: bottom;
+    border: solid 1px #999;
+    width: 50%;
+    resize: none;
+    background-color: white;
+    height: 100px;
+    padding: 10px;
+  }
+  
+  .label-presupuesto {
+    vertical-align: bottom;
+    margin: 0 10px;
+    width: 45%;
+    color: #fff;
+    background-color: #121212;
+    padding: 5px 20px;
+    text-align: left;
+    font-weight: 400;
+  }
+  
+  .presupuesto__submit {
+    background-color: #a00072;
+    color: white;
+    border: none;
+    padding: 13px;
+    margin: 30px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .div-botones-presupuesto {
+    display: flex;
+    justify-content: center;
+  }
+  

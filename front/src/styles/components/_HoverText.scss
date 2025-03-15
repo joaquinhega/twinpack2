@@ -1,0 +1,25 @@
+.hovertext{
+  top: -20px;
+  left: 40px;
+  color: white;
+}
+
+.message {
+  position: absolute;
+  padding: 10px;
+  text-align: left;
+  font: 400 .9em 'Open Sans', sans-serif;
+  white-space: nowrap;
+  top: -8px;
+  background-color: $colorPrincipal !important;
+}
+
+
+@media screen and (max-width: 770px){
+  .hovertext {
+    display: none;
+  }
+  .message {
+    display: none;
+  }
+}

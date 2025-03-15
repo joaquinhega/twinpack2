@@ -1,0 +1,198 @@
+
+
+
+.login {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+
+  &_div1{
+    width: 50%;
+    padding: 0px 2.5% 0px 5%;
+    vertical-align:middle;
+    text-align: center;
+  }
+
+  &_div2{
+    width: 50%;
+    display: flex;
+    padding: 0px 5% 0px 2.5%;
+    vertical-align:middle;
+    background-image: url(/media/etiqueta1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: inherit
+  }
+
+  &_div_form{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+  }
+
+  &_image{
+    margin-top: 50px;
+  }
+
+  &_title{
+    font-weight: 400;
+    color: white;
+    font-size: 2rem;
+    margin: 30px 0px;
+  }
+
+  &_form{
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    margin: 0px 20%;
+
+    &_placeholder{
+      display: flex;
+      color: #939393;
+      transform: translateY(35px) translateX(10px);
+      pointer-events: none;
+      transition: all 0.5s;
+
+      &.login_form_placeholder_password svg {
+        align-self: flex-end;
+      }
+
+      & label{
+        padding-left: 5px;
+      }
+
+      & svg{
+        transform: scale(1.2);
+      }
+    }
+
+
+    &_input{
+      margin-top: 5px;
+      padding: 10px;
+      background:transparent;
+      border: none;
+      color: white;
+      border-bottom: solid 1px white;
+    }
+
+
+    &_link{
+      font-size: 0.9em;
+      font-weight: 400;
+      color: white;
+      text-align: left;
+
+      margin: 5px 2px 5px 2px;
+      & a{
+        color: inherit;
+        text-decoration: underline;
+        margin-left: 5px;
+        &:hover{
+          
+        }
+      }
+    }
+
+    &_link_register{
+      font-size: 1em;
+      font-weight: 400;
+      color: #9f0059;
+      text-align: left;
+
+      margin: 5px 2px 5px 2px;
+      & a{
+        color: inherit;
+        text-decoration: underline;
+        margin-left: 5px;
+        &:hover{
+          
+        }
+      }
+    }
+
+    &_submit{
+      margin: 50px 0px 20px 0px;
+      padding: 20px 10px;
+      background-color: #9f0059;
+      border: none;
+      color:white;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: 400;
+
+      &:hover{
+        color: #939393
+      }
+    }
+  }
+
+  &_dashboard{
+    position: absolute;
+    right: 5%;
+    top: 90vh;
+  }
+
+  &_register_info{
+    text-align: center;
+  }
+}
+
+.double_row{
+  display: flex;
+}
+
+.pp_register{
+  color: white;
+}
+
+// Adding dynamic event
+
+.login_form_placeholder_active {
+  transform: translateY(10px) !important;
+  margin-top: 4px;
+  font-size: 0.8em;
+  transition: all 0.5s !important;
+}
+
+@media screen and (max-width: 650px){
+  .login {
+    display: block;
+    height: unset;
+    margin-bottom: 150px;
+    &_form {
+      &_input {
+        margin: 10px 0px;
+      }
+      &_placeholder {
+        transform: translateY(40px) translateX(10px);
+      }
+    }
+    &_div1{
+      width:100%;
+      padding: 5vh 0px;
+    }
+
+    &_image{
+      width:90%;
+    }
+  
+    &_div2{
+      width:100%;
+      padding-bottom: 30px;
+    }
+  }
+
+  .double_row{
+    flex-direction: column;
+  }
+
+  .login_form_placeholder_active {
+    transform: translateY(10px) translateX(10px) !important;
+    font-size: 0.8em;
+    transition: all 0.5s !important;
+  }
+
+}

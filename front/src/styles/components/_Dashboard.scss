@@ -1,0 +1,49 @@
+.dashboard {
+  min-height: 100vh;
+  background-color: white;
+
+  &_div{
+   min-height: 100vh;
+   width: 100%;
+   overflow:hidden;
+   background-image: url(/media/bodega.jpg);
+   background-repeat: no-repeat;
+   background-position: 60% 0%;
+   background-size: cover;
+   position: absolute;
+   top: 0px;
+  }
+
+  &_text{
+    margin: 0px;
+    color: white;
+    width: 40%;
+    padding: 40vh 5% 0vh 5%;
+    background: rgba(175, 16, 101, 0.5);
+    height: 100vh;
+  }
+
+  &_t{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 2em;
+    margin: 0px;
+  }
+
+  &_wines{
+    font-size: 2.6em;
+    margin: 10px;
+  }
+
+}
+
+
+
+@media screen and (max-width: 770px){
+  .dashboard {
+    &_text {
+      width: 60%;
+      font-size: 0.9em;
+      padding: 25vh 5% 0vh 5%;
+    }
+  }
+}

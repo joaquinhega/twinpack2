@@ -1,0 +1,33 @@
+.admin__body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  &__section {
+
+    display:flex;
+    margin: 10px 60px;
+
+    &__title {
+      text-align: center;
+      font-weight: 150;
+      font-size: 1.5em;
+      vertical-align: middle;
+      margin: 0px;
+    }
+
+    &__logo {
+
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    color: #505050;
+
+    }
+  }
+}
+
+.admin__body__section:hover {
+  cursor: pointer;
+}
+

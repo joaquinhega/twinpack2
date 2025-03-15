@@ -1,0 +1,138 @@
+.header {
+  background-color: #fefbe9;
+  display: flex;
+  flex-direction: row;
+  transition: background-color 0.4s;
+  align-items: center;
+  background-color: #121212;
+  height: 10vh;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 10px;
+  &_power {
+    font-size: 0.8em;
+  }
+
+  &_logo{
+    height: inherit;
+    transition: width 0.3s;
+    cursor: pointer;
+    background-color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  & ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+    font-size:1.2em;
+    color: white;
+
+    & li {
+      padding: 0px 20px;
+      & svg {
+        transform: translateY(2px) translateX(-5px) scale(1.2);
+      }
+
+      &:hover{
+        color: #939393
+      }
+    }
+    
+  }
+
+  &_nav_mobile {
+    display: none;
+    &_body{
+      display: none;
+    }
+  }
+
+  & nav{
+    width: 100%;    
+  }
+
+}
+
+.header_nav_mobile_body{
+  & ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    font-size:1.4em;
+    color: white;
+    background: $colorPrincipal;
+    margin: 0px;
+    width: 60%;
+    height: 100vh;
+    padding-top: 8vh;
+
+    & li {
+      padding: 20px 20px;
+    }
+}
+}
+
+.header_is_fixed {
+  background-color: #9f0059;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+
+@media screen and (max-width: 770px){
+  .header {
+    align-items: center;
+    &_logo {
+      width: 180px;
+    }
+
+    & ul {
+      margin-right: 0px;
+
+      & li {
+        padding: 0px 10px;
+        font-size: 16px;
+        display: none;
+      }
+    }
+
+    &_nav_mobile {
+      display: block;
+      margin-right: 30px;
+      transform: translateY(-3px);
+      & svg {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+      &_body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        transform: translateX(-1000px);
+        z-index: 20;
+        position: fixed;
+        display: block;
+        transition: transform 0.7s;
+
+        &_active{
+          transform: translateX(0px);
+          &_scroll{
+            transform: translateX(0px) translateY(6px);
+          }
+        }
+      }
+    }
+  }
+
+  .cartwidgetactive {
+      display: block !important;
+  }
+}
