@@ -30,7 +30,8 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
             }
         };
         var cadenaParametros = `Sort=${encodeURIComponent(sortColumn)}&Search=${encodeURIComponent(input_search.search)}&Filter=${encodeURIComponent(input_search.filter)}&SelectedPage=${encodeURIComponent(pagination.selectedPage)}&idCuenta=${encodeURIComponent(user.idCuenta)}`;
-        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_itemsOrden.php', true);
+//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_itemsOrden.php', true);
+        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_itemsOrden.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     }

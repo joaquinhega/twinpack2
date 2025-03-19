@@ -34,7 +34,8 @@ const Header = () => {
     const logOut = () => {
         if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
             axios
-                .get("https://twinpack.com.ar/sistema/php/logout.php")
+//                .get("http://localhost/pruebaTwinpack/php/logout.php")
+                .get("http://localhost/pruebaTwinpack/php/logout.php")
                 .then((res) => {
                     history.push("/");
                 })

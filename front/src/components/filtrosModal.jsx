@@ -40,7 +40,8 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
 
     const fetchEstados = async () => {
         try {
-            const response = await axios.get("https://twinpack.com.ar/sistema/php/buscar_estados.php");
+//            const response = await axios.get("https://twinpack.com.ar/sistema/php/buscar_estados.php");
+            const response = await axios.get("http://localhost/pruebaTwinpack/php/buscar_estados.php");
             setEstados(response.data);
         } catch (error) {
             console.error("Error fetching estados:", error);
@@ -49,7 +50,8 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
 
     const fetchCategorias = async () => {
         try {
-            const response = await axios.get("https://twinpack.com.ar/sistema/php/buscar_categorias.php");
+//            const response = await axios.get("https://twinpack.com.ar/sistema/php/buscar_categorias.php");
+            const response = await axios.get("http://localhost/pruebaTwinpack/php/buscar_categorias.php");
             setCategorias(response.data);
         } catch (error) {
             console.error("Error fetching categorias:", error);

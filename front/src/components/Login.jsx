@@ -46,8 +46,9 @@ const Login = () => {
         formData.append("password", inputs.password);
 
         axios
-            .post("https://twinpack.com.ar/sistema/php/iniciar_sesion.php", formData)
-            .then((res) => {
+//            .post("https://twinpack.com.ar/sistema/php/iniciar_sesion.php", formData)
+                .post("http://localhost/pruebaTwinpack/php/iniciar_sesion.php", formData)
+                .then((res) => {
                 if (res.data && !res.data.error) {
                     // Verifica si la respuesta del servidor es exitosa
                     toast.success("Bienvenido!");

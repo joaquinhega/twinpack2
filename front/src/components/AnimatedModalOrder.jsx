@@ -11,7 +11,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import {UserContext} from "../contexts/UserContext";
 
-export default function AnimatedModal({hasChange,show,handleClose,id,cliente,numero_orden,proveedor,categoria, fecha_entrega, monto_total, observaciones,motivo_no_asignacion}) {
+export default function AnimatedModal({show,handleClose,id,cliente,numero_orden,proveedor,categoria, fecha_entrega, monto_total, observaciones,motivo_no_asignacion}) {
     let history = useHistory();
     const {user} = useContext(UserContext);
     const refObs = useRef(null);
@@ -44,7 +44,8 @@ export default function AnimatedModal({hasChange,show,handleClose,id,cliente,num
             }
         };
         var cadenaParametros = `ID=${encodeURIComponent(id)}`;
-        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_orden_status.php', true);
+//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_orden_status.php', true);
+        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_orden_status.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     }
@@ -115,7 +116,8 @@ export default function AnimatedModal({hasChange,show,handleClose,id,cliente,num
         formData.append("Observaciones", statusObs);
         
         axios
-            .post("https://twinpack.com.ar/sistema/php/guardar_datos.php", formData)
+//            .post("https://twinpack.com.ar/sistema/php/guardar_datos.php", formData)
+            .post("http://localhost/pruebaTwinpack/php/guardar_datos.php", formData)
             .then((res) => {
                 console.log("Respuesta del backend:", res.data);
                 if (res.data.logs) {
@@ -142,7 +144,8 @@ export default function AnimatedModal({hasChange,show,handleClose,id,cliente,num
 
    const traerArchivos = () => {
         const params = new URLSearchParams({ ID: id }).toString();
-        axios.post('https://twinpack.com.ar/sistema/php/buscar_archivos.php', params)
+//        axios.post('https://twinpack.com.ar/sistema/php/buscar_archivos.php', params)
+        axios.post('http://localhost/pruebaTwinpack/php/buscar_archivos.php', params)
             .then(response => {
                 if (response.data && Array.isArray(response.data.files)) {
                     setFiles(response.data.files);
@@ -169,7 +172,8 @@ export default function AnimatedModal({hasChange,show,handleClose,id,cliente,num
         data.append('ID', id);
         data.append('StatusItems', JSON.stringify(status_item_new));
     
-        axios.post('https://twinpack.com.ar/sistema/php/guardar_estados_todos.php', data)
+//        axios.post('https://twinpack.com.ar/sistema/php/guardar_estados_todos.php', data)
+        axios.post('http://localhost/pruebaTwinpack/php/guardar_estados_todos.php', data)
             .then(response => {
                 console.log("Respuesta del backend:", response.data);
                 if (response.data.logs) {
@@ -287,7 +291,7 @@ export default function AnimatedModal({hasChange,show,handleClose,id,cliente,num
                                     {files.length > 0 ? (
                                         files.map((file) => (
                                             <React.Fragment key={file.name}>
-                                                <a target="_blank" href={`https://twinpack.com.ar/sistema/php/uploads/${file.name}`}>
+                                                <a target="_blank" href={`http://localhost/pruebaTwinpack/php/uploads/${file.name}`}>
                                                     <p className="file_edit">{file.name}</p>
                                                 </a>
                                             </React.Fragment>

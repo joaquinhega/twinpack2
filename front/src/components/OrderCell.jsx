@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, useEffect } from "react";
 
-const OrderCell = ({ id, fecha, usuario, cliente, proveedor, observaciones, recibida, ordersEdited, setOrdersEdited }) => {
+const OrderCell = ({ id, fecha, fechaEntrega, usuario, cliente, proveedor, observaciones, recibida, ordersEdited, setOrdersEdited }) => {
     const [recibidaToFetch, setRecibidaToFetch] = useState(recibida);
     const isFirstRenderOrder = useRef(true);
     const changeRecibida = function(event) {
@@ -37,6 +37,7 @@ const OrderCell = ({ id, fecha, usuario, cliente, proveedor, observaciones, reci
         <tr>
             <td>{id}</td>
             <td>{fecha}</td>
+            <td>{fechaEntrega}</td>
             <td>{usuario}</td>
             <td>{cliente}</td>
             <td>{proveedor}</td>

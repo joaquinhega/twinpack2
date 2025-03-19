@@ -19,7 +19,8 @@ const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
 
     useEffect(() => {
-        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
+//        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
+        axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php')
             .then((response) => {
                 setCategories(response.data);
             })

@@ -21,7 +21,8 @@ const EditProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState(product.category || "");
 
     useEffect(() => {
-        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
+//        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
+            axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php')
             .then((response) => {
                 setCategories(response.data);
             })
@@ -46,8 +47,9 @@ const EditProduct = () => {
         const newTotalAmount = calculateNewTotalAmount();
         console.log("Actualizando monto total de la orden:", newTotalAmount); // Log para ver el nuevo monto total
         try {
-            const response = await axios.post('https://twinpack.com.ar/sistema/php/editar_orden.php', new URLSearchParams({
-                orderId: orderId,
+//            const response = await axios.post('https://twinpack.com.ar/sistema/php/editar_orden.php', new URLSearchParams({
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/editar_orden.php', new URLSearchParams({
+                    orderId: orderId,
                 Monto: newTotalAmount
             }));
             console.log("Respuesta del servidor al actualizar el monto total de la orden:", response.data); // Log para ver la respuesta del servidor
@@ -79,7 +81,8 @@ const EditProduct = () => {
             observations: inputObservations,
             user_id: user.id 
         };
-        axios.post('https://twinpack.com.ar/sistema/php/editar_producto.php', new URLSearchParams(updatedProduct))
+//        axios.post('https://twinpack.com.ar/sistema/php/editar_producto.php', new URLSearchParams(updatedProduct))
+            axios.post('http://localhost/pruebaTwinpack/php/editar_producto.php', new URLSearchParams(updatedProduct))
             .then((response) => {
                 console.log("Respuesta del servidor:", response.data);
                 if (response.data === "Producto actualizado correctamente") {

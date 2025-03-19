@@ -34,7 +34,8 @@ const OrderDetailModal = ({ order, onClose }) => {
             }
         };
         const cadenaParametros = `Sort=id&Search=&Filter=&SelectedPage=1&idOrder=${order.id}`;
-        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
+//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
+        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_items.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     };
@@ -75,7 +76,8 @@ const OrderDetailModal = ({ order, onClose }) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
         if (confirmDelete) {
             try {
-                const response = await axios.post('https://twinpack.com.ar/sistema/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
+//                const response = await axios.post('https://twinpack.com.ar/sistema/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
                 if (response.data === "Producto eliminado correctamente") {
                     setProducts((prevProducts) => prevProducts.filter((p) => p.id !== product.id));
                     toast.success("Producto eliminado correctamente");
@@ -98,8 +100,9 @@ const OrderDetailModal = ({ order, onClose }) => {
                 order_id: order.id,
                 bandera: bandera
             });    
-            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
-                orderItems: JSON.stringify(localProducts),
+//            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/checkout.php', new URLSearchParams({
+                    orderItems: JSON.stringify(localProducts),
                 order_id: order.id
             }));
         
@@ -129,7 +132,8 @@ const OrderDetailModal = ({ order, onClose }) => {
         if (confirmDelete) {
             try {
                 const response = await axios.post(
-                    'https://twinpack.com.ar/sistema/php/eliminar_file.php',
+//                    'https://twinpack.com.ar/sistema/php/eliminar_file.php',
+                    'http://localhost/pruebaTwinpack/php/eliminar_file.php',
                     new URLSearchParams({ nombre: file.nombre, origen: file.origen })
                 );
                 if (response.data.message === "Archivo eliminado correctamente") {
@@ -154,8 +158,9 @@ const OrderDetailModal = ({ order, onClose }) => {
 
     const fetchDiscountedAmount = async () => {
         try {
-            const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
-                orderId: order.id,
+//            const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
+                    orderId: order.id,
             }));
             if (response.data && response.data.monto_total) {
                 setDiscountedAmount(parseFloat(response.data.monto_total));
@@ -259,7 +264,7 @@ const OrderDetailModal = ({ order, onClose }) => {
                     <ul>
                         {orderFiles.map((file, index) => (
                             <li key={index}>
-                                <a href={`https://twinpack.com.ar/sistema/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
+                                <a href={`http://localhost/pruebaTwinpack/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
                                     {file.nombre}
                                 </a>
                                 <MdDelete

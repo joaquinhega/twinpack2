@@ -55,8 +55,11 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
         if (delay === "" || delay === null) {
             return "transparent";
         }
-        if (delay <= 5) {
+        if (delay <= 0) {
             return "red"
+        }
+        if (delay <= 5 && delay > 0) {
+            return "orange"
         }
         if (delay < 10 && delay > 5) {
             return "#e1da13";
@@ -65,10 +68,10 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
             return "#74c329";
         } 
         return null
-        };
+    };
+
 
     function openDetail (order_id,s){
-        console.log ("Open "+ order_id);
         history.push("/dashboard/request?id="+order_id+"&s="+s);
     }
     return(

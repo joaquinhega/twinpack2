@@ -23,7 +23,8 @@ const NewQuotation = () => {
     useEffect(() => {
         const fetchClientsAndProviders = async () => {
             try {
-                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+//                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
                 console.log(response.data);
                 const itemsArray = response.data;
                 setClients(itemsArray.filter(item => item.tipo_other === 2));
@@ -35,7 +36,8 @@ const NewQuotation = () => {
 
         const fetchCategories = async () => {
             try {
-                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
+//                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
                 console.log("Categorías cargadas:", response.data); 
                 setCategories(response.data);
             } catch (error) {
@@ -104,7 +106,8 @@ const NewQuotation = () => {
                 formData.append(`file_${index}`, file);
             });
 
-            axios.post("https://twinpack.com.ar/sistema/php/checkoutOrder.php", formData)
+//            axios.post("https://twinpack.com.ar/sistema/php/checkoutOrder.php", formData)
+            axios.post("http://localhost/pruebaTwinpack/php/checkoutOrder.php", formData)
                 .then((res) => {
                     console.log("Response from checkoutOrder:", res.data);
                     if (res.data[0] === "Solicitud enviada correctamente") {
