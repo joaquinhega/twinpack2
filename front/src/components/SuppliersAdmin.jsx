@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import "../styles/components/_SuppliersAdminmodal.scss"; // Importar los estilos del modal
 
 const SuppliersAdmin = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -45,10 +44,12 @@ const SuppliersAdmin = () => {
     };
 
     const handleAddSupplier = async () => {
-        if (newSupplier && newSupplierLogo) {
+        if (newSupplier) {
             const formData = new FormData();
             formData.append("Proveedor", newSupplier);
-            formData.append("Logo", newSupplierLogo);
+            if(newSupplierLogo){
+                formData.append("Logo", newSupplierLogo);
+            } 
 
             const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_proveedor.php', {
                 method: 'POST',

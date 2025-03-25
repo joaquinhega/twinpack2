@@ -19,6 +19,7 @@ const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
 
     useEffect(() => {
+        
 //        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
         axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php')
             .then((response) => {
@@ -56,7 +57,7 @@ const AddProduct = () => {
         const storedProducts = JSON.parse(localStorage.getItem('orderItems_new')) || [];
         storedProducts.push(newItem);
         localStorage.setItem('orderItems_new', JSON.stringify(storedProducts));
-        toast.success("Producto agregado a localStorage");
+        toast.success("Producto guardado temporalmente");
         history.push({
             pathname: returnPath || "/dashboard",
             state: { reopenModal, orderId }

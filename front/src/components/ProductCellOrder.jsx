@@ -3,16 +3,11 @@
 import {useState} from "react";
 import AnimatedModalOrder from "./AnimatedModalOrder";
 import {FaCheck,FaList} from "react-icons/fa";
-import {FaFileInvoiceDollar} from "react-icons/fa";
-import {FaTools} from "react-icons/fa";
-import {FaRulerCombined} from "react-icons/fa";
 import {FaDollarSign} from "react-icons/fa";
 import {FaCheckDouble} from "react-icons/fa";
 import {FaExclamationCircle} from "react-icons/fa";
 import {FaPaintBrush} from "react-icons/fa";
 import {FaIndustry} from "react-icons/fa";
-import {FaTruck} from "react-icons/fa";
-import {FaRegWindowClose} from "react-icons/fa";
 import {FaCalendarCheck} from "react-icons/fa";
 import {useHistory} from "react-router-dom";
 
@@ -22,28 +17,18 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
 
     function getIcon(platformId) {
         switch (platformId) {
-            case "Nueva solicitud":
-            return <FaFileInvoiceDollar className="product_image_status" />
-            case "Análisis de Factibilidad":
-            return <FaTools className="product_image_status"/>
-            case "Desarrollo Estructural":
-            return <FaRulerCombined className="product_image_status"/>
-            case "Prototipo Aprobado":
-            return <FaCheck className="product_image_status"/>
             case "Cotizado":
             return <FaDollarSign className="product_image_status"/>
             case "Orden de Compra Emitida":
             return <FaCheckDouble className="product_image_status"/>
             case "Orden NO Asignada":
             return <FaExclamationCircle className="product_image_status"/>
-            case "Proceso Aprobación Diseño":
+            case "Proceso de Diseño y Desarrollo":
             return <FaPaintBrush className="product_image_status"/>
-            case "En Producción":
+            case "Producción":
             return <FaIndustry className="product_image_status"/>
-            case "Entregado":
-            return <FaTruck className="product_image_status"/>
-            case "Cerrado":
-            return <FaRegWindowClose className="product_image_status"/>
+            case "Chequeado":
+            return <FaCheck className="product_image_status" />;
             default:
             return null
             }

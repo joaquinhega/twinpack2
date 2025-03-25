@@ -212,21 +212,14 @@ export default function AnimatedModal({show,handleClose,id,cliente,numero_orden,
     }
 
     const order = [
-        "Nueva solicitud",
-        "Análisis de Factibilidad",
-        "Desarrollo Estructural",
-        "Prototipo Aprobado",
-        "Pedido de Cotización",
         "Cotizado",
         "Orden de Compra Emitida",
-        "Orden NO Asignada",
-        "Proceso Aprobación Diseño",
-        "En Producción",
-        "Entregado",
-        "Cerrado"
+        "Proceso de Diseño y Desarrollo",
+        "Producción",
+        "Chequeado"
     ];
     
-    const sortedStatusItems = status_item.sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status));
+    const sortedStatusItems = status_item;
     
     const status_items = sortedStatusItems.map((item, index) => (
         <div key={item.id} style={{ backgroundColor: item.dd === "0" ? "rgb(220,220,220)" : "white" }}>
