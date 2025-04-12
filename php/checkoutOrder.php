@@ -29,21 +29,22 @@ $ejecucionSQL->execute();
 while ($filaPDO = $ejecucionSQL->fetch(PDO::FETCH_ASSOC)) {
     $user_name = $filaPDO['nombre'];
 }
-
+$logs[] = "Total antes de ingresar: " . $totalAmount;
 $sql1 = "INSERT INTO ORDEN (cliente_id, proveedor_id, observaciones, user_id, monto_total, activo) 
 VALUES (
     (SELECT id FROM CLIENTES WHERE cliente = :cliente_nombre AND activo = 1), 
     (SELECT id FROM PROVEEDORES WHERE proveedor = :proveedor_nombre AND activo = 1), 
     :observaciones,
     :user_id, 
-    :monto, 
+    :totalAmount, 
     1)";
 $ejecucionSQL1 = $conexionPDO->prepare($sql1);
 $ejecucionSQL1->bindParam(':cliente_nombre', $cliente_nombre);
 $ejecucionSQL1->bindParam(':proveedor_nombre', $proveedor_nombre);
 $ejecucionSQL1->bindParam(':observaciones', $observaciones);
 $ejecucionSQL1->bindParam(':user_id', $user_id);
-$ejecucionSQL1->bindParam(':monto', $totalAmount);
+$logs[] = "Total despues de ingresar: " . $totalAmount;
+$ejecucionSQL1->bindParam(':totalAmount', $totalAmount);
 
 if ($ejecucionSQL1->execute()) {
     $last_id = $conexionPDO->lastInsertId();
@@ -54,7 +55,8 @@ if ($ejecucionSQL1->execute()) {
 
     foreach ($orderItems as $item) {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://twinpack.com.ar/sistema/php/checkout.php");
+//        curl_setopt($ch, CURLOPT_URL, "https://twinpack.com.ar/sistema/php/checkout.php");
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/pruebaTwinpack/php/checkout.php");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
             'quantity' => $item['quantity'],

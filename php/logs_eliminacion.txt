@@ -18,4 +18,47 @@ Referencia del archivo eliminada de la base de datosNombre del archivo: Java - E
 Origen: ARCHIVOS
 Ruta del archivo: uploads/Java - Estructuras Repetitivas, vectores y matrices_ Revisión del intento.pdf
 Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Presupuesto_1.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Presupuesto_1.pdf
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: undefined
+Origen: undefined
+Ruta del archivo: uploads/undefined
+Tabla no permitida o inválidaNombre del archivo: undefined
+Origen: undefined
+Ruta del archivo: uploads/undefined
+Tabla no permitida o inválidaNombre del archivo: undefined
+Origen: undefined
+Ruta del archivo: uploads/undefined
+Tabla no permitida o inválidaDatos insuficientes para procesar la solicitudDatos insuficientes para procesar la solicitudNombre del archivo: Guia_GitHub.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Guia_GitHub.pdf
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Función de dos variables.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Función de dos variables.pdf
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: hanoi_1.png
+Origen: undefined
+Ruta del archivo: uploads/hanoi_1.png
+Tabla no permitida o inválidaNombre del archivo: hanoi_1.png
+Origen: undefined
+Ruta del archivo: uploads/hanoi_1.png
+Tabla no permitida o inválidaNombre del archivo: hanoi_1.png
+Origen: ARCHIVOS
+Ruta del archivo: uploads/hanoi_1.png
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Guia_GitHub.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Guia_GitHub.pdf
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Estratos_Tiempo.png
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Estratos_Tiempo.png
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Cotización Twinpack (1).pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Cotización Twinpack (1).pdf
+Archivo eliminado del sistema de archivos
 Referencia del archivo eliminada de la base de datos

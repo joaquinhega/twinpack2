@@ -7,11 +7,12 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderId = $_POST['orderId'];
     $amount = $_POST['Monto'];
+    $newDate = $_POST['FechaEntrega'];
 
     // Log para ver los valores recibidos
-    error_log("Valores recibidos: orderId=$orderId, amount=$amount");
+    error_log("Valores recibidos: orderId=$orderId, amount=$amount, newDate=$newDate");
 
-    if (empty($orderId) || empty($amount)) {
+    if (empty($orderId) || empty($amount) || empty($newDate)) {
         echo json_encode(['success' => false, 'message' => 'Faltan datos requeridos']);
         exit;
     }
@@ -23,6 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conexionPDO = new PDO("mysql:host=$servidor;dbname=$bd;charset=UTF8", $usuario, $clave);
 
+        // Obtener la fecha actual de la orden
+        $sqlGetDate = "SELECT fecha_solicitud FROM ORDENES WHERE orden_id = :orderId";
+        $stmtGetDate = $conexionPDO->prepare($sqlGetDate);
+        $stmtGetDate->execute(['orderId' => $orderId]);
+        $currentDate = $stmtGetDate->fetchColumn();
+
+        // Actualizar la orden
         $sql = "UPDATE ORDEN SET monto_total = :amount";
         $params = ['amount' => $amount, 'orderId' => $orderId];
 
@@ -43,8 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement = $conexionPDO->prepare($sql);
         $statement->execute($params);
 
-        // Log para ver si la actualización fue exitosa
-        error_log("Actualización de la orden exitosa: orderId=$orderId");
+        // Si la fecha cambió, actualizar las fechas de los ítems relacionados
+        if ($newDate !== $currentDate) {
+            $sqlUpdateItems = "UPDATE ORDENES SET fecha_solicitud = :newDate WHERE orden_id = :orderId";
+            $stmtUpdateItems = $conexionPDO->prepare($sqlUpdateItems);
+            $stmtUpdateItems->execute(['newDate' => $newDate, 'orderId' => $orderId]);
+
+            error_log("Fechas de los ítems actualizadas para la orden: $orderId");
+        }
 
         // Manejo de archivos
         $uploadedFiles = [];

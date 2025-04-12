@@ -73,7 +73,6 @@ const Login = () => {
                         cliente_id: res.data["cliente_id"],
                         id: res.data["id"]
                     }));
-                    console.log("User ID:", res.data["id"]);
 
                     // Redirige al Dashboard
                     history.push("/dashboard");

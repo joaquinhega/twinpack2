@@ -100,12 +100,6 @@ const OrderDetailModal = ({ order, onClose }) => {
     const handleSaveChanges = async () => {
         const bandera = 0;
         try {
-            console.log("Datos enviados:", {
-                orderItems: JSON.stringify(localProducts),
-                order_id: order.id,
-                bandera: bandera,
-                source: "OrderDetailModal"
-            });    
 //            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/checkout.php', new URLSearchParams({
                     orderItems: JSON.stringify(localProducts),

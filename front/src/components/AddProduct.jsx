@@ -54,7 +54,6 @@ const AddProduct = () => {
             observations: inputObservations,
             user_id: user.id 
         };
-        console.log("New item en AddProduct:", newItem);
         const storedProducts = JSON.parse(localStorage.getItem('orderItems_new')) || [];
         storedProducts.push(newItem);
         localStorage.setItem('orderItems_new', JSON.stringify(storedProducts));

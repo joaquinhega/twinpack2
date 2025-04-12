@@ -53,10 +53,12 @@ try {
             DATEDIFF(
                 (SELECT ord.fecha_solicitud FROM ORDENES ord WHERE ord.orden_id = o.id LIMIT 1), 
                 CURRENT_DATE
-            ) AS delay
+            ) AS delay,
+            u.nombre AS usuario
         FROM ORDEN o
         INNER JOIN CLIENTES c ON c.id = o.cliente_id
         INNER JOIN PROVEEDORES p ON p.id = o.proveedor_id
+        INNER JOIN USUARIOS u ON u.id = o.user_id
         WHERE o.activo = 1 AND o.recibida = 1
         ORDER BY o.id DESC
         LIMIT :maxperpage OFFSET :offsetItem";
@@ -70,6 +72,7 @@ try {
         $item = new stdClass();
         $item->id = $filaPDO['id_orden'];
         $item->numero_orden = "S" . str_pad($filaPDO['id_orden'], 6, "0", STR_PAD_LEFT);
+        $item->usuario = $filaPDO['usuario'];
         $item->cliente = $filaPDO['cliente'];
         $item->categoria = $filaPDO['categoria'];
         $item->proveedor = $filaPDO['proveedor'];

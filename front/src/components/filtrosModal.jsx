@@ -14,28 +14,20 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
     const categoriaDropdownRef = useRef(null);
 
     useEffect(() => {
-        console.log("FiltrosModal - initialSelectedEstado:", initialSelectedEstado);
-        console.log("FiltrosModal - initialSelectedCategoria:", initialSelectedCategoria);
-        console.log("FiltrosModal - initialFechaDesde:", initialFechaDesde);
-        console.log("FiltrosModal - initialFechaHasta:", initialFechaHasta);
         fetchEstados();
         fetchCategorias();
     }, []);
 
     useEffect(() => {
-        console.log("FiltrosModal - selectedEstados:", selectedEstados);
     }, [selectedEstados]);
 
     useEffect(() => {
-        console.log("FiltrosModal - selectedCategorias:", selectedCategorias);
     }, [selectedCategorias]);
 
     useEffect(() => {
-        console.log("FiltrosModal - fechaDesde:", fechaDesde);
     }, [fechaDesde]);
 
     useEffect(() => {
-        console.log("FiltrosModal - fechaHasta:", fechaHasta);
     }, [fechaHasta]);
 
     const fetchEstados = async () => {
@@ -75,18 +67,11 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
     };
 
     const handleApply = () => {
-        console.log("Applying filters in FiltrosModal:");
-        console.log("Estados seleccionados:", selectedEstados);
-        console.log("Categorías seleccionadas:", selectedCategorias);
-        console.log("Fecha Desde:", fechaDesde);
-        console.log("Fecha Hasta:", fechaHasta);
-        
         onApplyFilters(selectedEstados, selectedCategorias, fechaDesde, fechaHasta);
         onClose(); // Cerrar el modal después de aplicar los filtros
     };
 
     const handleClear = () => {
-        console.log("Clearing filters in FiltrosModal:");
         setSelectedEstados([]);
         setSelectedCategorias([]);
         setFechaDesde("");
@@ -186,7 +171,6 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
                         id="fechaDesde"
                         value={fechaDesde}
                         onChange={(e) => {
-                            console.log("Fecha Desde cambiada:", e.target.value);
                             setFechaDesde(e.target.value);
                         }}
                     />
@@ -198,7 +182,6 @@ const FiltrosModal = ({ onClose, onApplyFilters, initialSelectedEstado = [], ini
                         id="fechaHasta"
                         value={fechaHasta}
                         onChange={(e) => {
-                            console.log("Fecha Hasta cambiada:", e.target.value);
                             setFechaHasta(e.target.value);
                         }}
                     />

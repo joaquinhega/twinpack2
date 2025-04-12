@@ -30,8 +30,8 @@ try {
     while ($fila = $ejecucionSQL->fetch(PDO::FETCH_ASSOC)) {
         $archivos[] = [
             'id' => $fila['id'],
-            'name' => $fila['nombre'],
-            'origin' => $fila['origen'],
+            'nombre' => $fila['nombre'],
+            'origen' => $fila['origen'],
         ];
     }
 

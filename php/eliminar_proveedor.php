@@ -13,9 +13,9 @@ $ejecucionSQL1 = $conexionPDO->prepare($sql1);
 $ejecucionSQL1->bindParam(':proveedorId', $proveedorId, PDO::PARAM_INT);
 
 if ($ejecucionSQL1->execute()) {
-    echo "Cliente eliminado correctamente";
+    echo "Proveedor eliminado correctamente";
 } else {
-    echo "Error al eliminar el cliente";
+    echo "Error al eliminar el proveedor";
 }
 
 $conexionPDO = null;

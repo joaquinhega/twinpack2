@@ -26,7 +26,6 @@ const NewQuotation = () => {
             try {
 //                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
-                console.log(response.data);
                 const itemsArray = response.data;
                 setClients(itemsArray.filter(item => item.tipo_other === 2));
                 setProviders(itemsArray.filter(item => item.tipo_other === 3));
@@ -39,7 +38,6 @@ const NewQuotation = () => {
             try {
 //                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
-                console.log("Categorías cargadas:", response.data); 
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -72,19 +70,13 @@ const NewQuotation = () => {
 
     const getCategoryName = (categoryId) => {
         if (!categoryId) return "Desconocida";
-        console.log("Category ID:", categoryId); 
-        console.log("Categorías disponibles:", categories); 
         const category = categories.find(cat => Number(cat.id) === Number(categoryId));
-        console.log("Found Category:", category); 
         return category ? category.categoria : "Desconocida";
     };
     
     const calculateTotalAmount = () => {
-        console.log("Calculando monto total para los ítems:", orderItems);
         return orderItems.reduce((total, item) => {
             const itemTotal = item.price * item.quantity;
-            console.log(`Ítem: ${item.description}, Cantidad: ${item.quantity}, Precio: ${item.price}, Total Ítem: ${itemTotal}`);
-            console.log(`Total acumulado: ${total + itemTotal}`);
             return total + itemTotal;
         }, 0).toFixed(2);
     };
@@ -102,7 +94,6 @@ const NewQuotation = () => {
             toast.error("Por favor, seleccione una fecha de entrega.");
             return;
         }
-        console.log("Order Items:", orderItems);
         const totalAmount = calculateTotalAmount();
         const updatedOrderItems = orderItems.map((item) => ({
             ...item,
@@ -118,7 +109,6 @@ const NewQuotation = () => {
             formData.append("orderItems", JSON.stringify(updatedOrderItems)); // Enviar los ítems con la fecha asignada
             formData.append("totalAmount", totalAmount);
             formData.append("source", "newQuotation"); // Indicar el origen
-            console.log("Order Items:", orderItems);
             files.forEach((file, index) => {
                 formData.append(`file_${index}`, file);
             });
@@ -126,7 +116,6 @@ const NewQuotation = () => {
 //            axios.post("https://twinpack.com.ar/sistema/php/checkoutOrder.php", formData)
             axios.post("http://localhost/pruebaTwinpack/php/checkoutOrder.php", formData)
                 .then((res) => {
-                    console.log("Response from checkoutOrder:", res.data);
                     if (res.data[0] === "Solicitud enviada correctamente") {
                         toast.success("Cotización enviada con éxito.");
                         localStorage.removeItem("orderItems_new");

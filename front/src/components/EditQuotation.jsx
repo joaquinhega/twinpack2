@@ -37,7 +37,6 @@ const EditQuotation = () => {
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
                     orderId: orderId
                 }));
-                console.log("Respuesta del servidor", response.data);
                 if (response.data) {
                     setInputClient(response.data.cliente_id);
                     setInputProvider(response.data.proveedor_id);
@@ -46,7 +45,6 @@ const EditQuotation = () => {
                     setDeliveryDate(response.data.fecha); 
                     setFiles(response.data.archivos || []); 
                 }
-                console.log("Archivos cargados:", response.data.archivos);
             } catch (error) {
                 console.error("Error al obtener los detalles de la orden:", error);
                 toast.error("Error al obtener los detalles de la orden");
@@ -93,8 +91,6 @@ const EditQuotation = () => {
             }
 
         } catch (error) {
-            console.log("Catch");
-
             toast.error("Error al actualizar la cotización.");
             console.error("Error al actualizar la cotización:", error);
         }
@@ -133,7 +129,6 @@ const EditQuotation = () => {
                     } else {
                         toast.error("Error al eliminar el archivo: " + response.data.message);
                     }
-                    console.log("Respuesta del servidor al eliminar archivo:", response.data);
 
                 } catch (error) {
                     console.error("Error al eliminar el archivo:", error);

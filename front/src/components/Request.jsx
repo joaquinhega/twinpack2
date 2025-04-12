@@ -24,10 +24,6 @@ const Request = () => {
     };
 
     useEffect(() => {
-        console.log("Estados:", selectedEstado);
-        console.log("Categorias:", selectedCategoria);
-        console.log("Fecha Desde:", fechaDesde);
-        console.log("Fecha Hasta:", fechaHasta);
     }, [selectedEstado, selectedCategoria, fechaDesde, fechaHasta]);
     
     const onSubmit = (e) => {
@@ -36,12 +32,6 @@ const Request = () => {
     };
 
     const handleApplyFilters = (estado, categoria, desde, hasta) => {
-        console.log("Applying filters in Request:");
-        console.log("Estados:", estado);
-        console.log("Categorias:", categoria);
-        console.log("Fecha Desde:", desde);
-        console.log("Fecha Hasta:", hasta);
-
         setSelectedEstado(estado);
         setSelectedCategoria(categoria);
         setFechaDesde(desde);
@@ -94,12 +84,6 @@ const Request = () => {
                 fechaDesde={fechaDesde}
                 fechaHasta={fechaHasta}
             />
-            {console.log("isFiltrosModalOpen:", isFiltrosModalOpen)}
-            {console.log("ProductTableOrder recibe:")}
-            {console.log("Estados:", selectedEstado)}
-            {console.log("Categorias:", selectedCategoria)}
-            {console.log("Fecha Desde:", fechaDesde)}
-            {console.log("Fecha Hasta:", fechaHasta)}
         </section>
     );
 };

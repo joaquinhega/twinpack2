@@ -7,11 +7,12 @@ $conexionPDO= new PDO("mysql:host=$servidor;dbname=$bd;charset=UTF8",$usuario,$c
 session_start();
 
 $items= array();
-$sql="SELECT ORDEN.id, ORDEN.created_at, USUARIOS.nombre, ORDEN.observaciones, CLIENTES.cliente, PROVEEDORES.proveedor, ORDEN.monto_total
+$sql="SELECT DISTINCT ORDEN.id, ORDEN.created_at, ORDENES.fecha_solicitud, USUARIOS.nombre, ORDEN.observaciones, CLIENTES.cliente, PROVEEDORES.proveedor, ORDEN.monto_total
         FROM ORDEN
         INNER JOIN USUARIOS ON USUARIOS.id = ORDEN.user_id
         LEFT JOIN CLIENTES ON CLIENTES.id = ORDEN.cliente_id
         LEFT JOIN PROVEEDORES ON PROVEEDORES.id = ORDEN.proveedor_id
+        INNER JOIN ORDENES ON ORDENES.orden_id = ORDEN.id
         WHERE ORDEN.recibida = 0 AND ORDEN.activo = 1
         ORDER BY ORDEN.created_at DESC";
 
@@ -22,6 +23,7 @@ while($filaPDO=$ejecucionSQL->fetch(PDO::FETCH_ASSOC)){
     $item=new stdClass();
     $item->id=$filaPDO['id'];
     $item->fecha=$filaPDO['created_at'];
+    $item->fecha_solicitud=$filaPDO['fecha_solicitud'];
     $item->usuario=$filaPDO['nombre'];
     $item->observaciones=$filaPDO['observaciones'];
     $item->cliente=$filaPDO['cliente'];

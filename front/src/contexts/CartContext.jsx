@@ -52,8 +52,6 @@ export const CartProvider = ({children}) => {
         for(let product of cart){
             totalPrice += product.totalForItem;
         }
-        console.log(totalPrice)
-
         return totalPrice;
     }
 

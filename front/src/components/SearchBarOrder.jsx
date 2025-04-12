@@ -9,23 +9,16 @@ const SearchBarOrder = ({ onSubmit, onApplyFilters, onSearchClientsOrProviders, 
     }, [showFiltrosModal]);
 
     const handleOpenFiltrosModal = () => {  
-        console.log("Opening FiltrosModal");
         setLocalShowFiltrosModal(true);
         onOpenFiltrosModal();
     };
 
     const handleCloseFiltrosModal = () => {   
-        console.log("Closing FiltrosModal");
         setLocalShowFiltrosModal(false);
         onCloseFiltrosModal();
     };
 
     const handleApplyFilters = (estado, categorias, desde, hasta) => {
-        console.log("Applying filters in SearchBarOrder:");
-        console.log("Estados:", estado);
-        console.log("Categorias:", categorias);
-        console.log("Fecha Desde:", desde);
-        console.log("Fecha Hasta:", hasta);
         onApplyFilters(estado, categorias, desde, hasta); 
         handleCloseFiltrosModal();
     };
@@ -53,7 +46,6 @@ const SearchBarOrder = ({ onSubmit, onApplyFilters, onSearchClientsOrProviders, 
                 </div>
             </form>
             {localShowFiltrosModal && <FiltrosModal onClose={handleCloseFiltrosModal} onApplyFilters={handleApplyFilters} />}
-            {console.log("localShowFiltrosModal:", localShowFiltrosModal)}
         </div>
     );
 };

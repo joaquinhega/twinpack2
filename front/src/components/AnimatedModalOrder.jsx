@@ -116,7 +116,6 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
         axios
             .post("http://localhost/pruebaTwinpack/php/guardar_datos.php", formData)
             .then((res) => {
-                console.log("Respuesta del backend:", res.data);
                 if (res.data.logs) {
                     res.data.logs.forEach(log => console.log(log));
                 }
@@ -158,7 +157,6 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
         let status_item_new = [...status_item];
         status_item_new[index].created = e.target.value;
         setStatusItem(status_item_new);
-        console.log(`Fecha cambiada en el índice ${index}: ${e.target.value}`);
 
         const data = new FormData();
         data.append('ID', id);
@@ -166,7 +164,6 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
 
         axios.post('http://localhost/pruebaTwinpack/php/guardar_estados_todos.php', data)
             .then(response => {
-                console.log("Respuesta del backend:", response.data);
                 if (response.data.logs) {
                     response.data.logs.forEach(log => console.log(log));
                 }
@@ -178,7 +175,6 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
     };
     const handleCircleClick = (index) => {
         setSelectedItem(selectedItem === index ? null : index);
-        console.log(`Círculo ${index} clicado. selectedItem: ${selectedItem}`);
     };
 
     const handleCloseAndReload = () => {
@@ -189,13 +185,11 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
     const handleDeleteFile = async (file) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este archivo?");
         if (confirmDelete) {
-            console.log("Archivo a eliminar:", file.nombre, "Origen:", file.origen);
             try {
                 const response = await axios.post(
                     'http://localhost/pruebaTwinpack/php/eliminar_file.php',
                     new URLSearchParams({ nombre: file.nombre, origen: file.origen })
                 );
-                console.log("Respuesta del backend:", response.data);
                 if (response.data.message === "Archivo eliminado correctamente") {
                     setFiles((prevFiles) => prevFiles.filter((f) => f.nombre !== file.nombre));
                     toast.success("Archivo eliminado correctamente");
