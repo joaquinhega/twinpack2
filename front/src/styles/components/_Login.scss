@@ -139,7 +139,14 @@
     text-align: center;
   }
 }
-
+.login_form {
+    width: 70%;
+    max-width: 100%;
+    overflow: hidden; 
+    margin: 0 auto; 
+    padding: 0;
+    box-sizing: border-box; 
+}
 .double_row{
   display: flex;
 }

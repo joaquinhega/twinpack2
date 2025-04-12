@@ -19,6 +19,7 @@ const NewQuotation = () => {
     const [providers, setProviders] = useState([]);
     const [categories, setCategories] = useState([]);
     const [files, setFiles] = useState([]);
+    const [inputDate, setInputDate] = useState("");
 
     useEffect(() => {
         const fetchClientsAndProviders = async () => {
@@ -53,6 +54,7 @@ const NewQuotation = () => {
         setInputClient(localStorage.getItem("inputClient") || "");
         setInputProvider(localStorage.getItem("inputProvider") || "");
         setInputObservations(localStorage.getItem("inputObservations") || "");
+        setInputDate(localStorage.getItem("inputDate") || ""); // Cargar la fecha desde localStorage
 
         const savedFiles = JSON.parse(localStorage.getItem("files")) || [];
         const loadedFiles = savedFiles.map(file => {
@@ -77,9 +79,14 @@ const NewQuotation = () => {
         return category ? category.categoria : "Desconocida";
     };
     
-
     const calculateTotalAmount = () => {
-        return orderItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+        console.log("Calculando monto total para los ítems:", orderItems);
+        return orderItems.reduce((total, item) => {
+            const itemTotal = item.price * item.quantity;
+            console.log(`Ítem: ${item.description}, Cantidad: ${item.quantity}, Precio: ${item.price}, Total Ítem: ${itemTotal}`);
+            console.log(`Total acumulado: ${total + itemTotal}`);
+            return total + itemTotal;
+        }, 0).toFixed(2);
     };
 
     const handleSubmit = async () => {
@@ -91,16 +98,26 @@ const NewQuotation = () => {
             toast.error("Debe agregar al menos un producto antes de enviar la cotización.");
             return;
         }
-
+        if (!inputDate) {
+            toast.error("Por favor, seleccione una fecha de entrega.");
+            return;
+        }
+        console.log("Order Items:", orderItems);
         const totalAmount = calculateTotalAmount();
+        const updatedOrderItems = orderItems.map((item) => ({
+            ...item,
+            date: inputDate, // Asignar la fecha seleccionada
+        }));
+
         try {
             const formData = new FormData();
             formData.append("Cliente", inputClient);
             formData.append("Proveedor", inputProvider);
             formData.append("Observaciones", inputObservations);
             formData.append("user_id", user.id);
-            formData.append("orderItems", JSON.stringify(orderItems));
+            formData.append("orderItems", JSON.stringify(updatedOrderItems)); // Enviar los ítems con la fecha asignada
             formData.append("totalAmount", totalAmount);
+            formData.append("source", "newQuotation"); // Indicar el origen
             console.log("Order Items:", orderItems);
             files.forEach((file, index) => {
                 formData.append(`file_${index}`, file);
@@ -116,6 +133,7 @@ const NewQuotation = () => {
                         localStorage.removeItem("inputClient");
                         localStorage.removeItem("inputProvider");
                         localStorage.removeItem("inputObservations");
+                        localStorage.removeItem("inputDate"); // Limpiar la fecha de localStorage
                         localStorage.removeItem("files");
                         history.push("/dashboard/cotizaciones");
                     } else {
@@ -137,6 +155,7 @@ const NewQuotation = () => {
         localStorage.removeItem("inputProvider");
         localStorage.removeItem("inputObservations");
         localStorage.removeItem("files");
+        localStorage.removeItem("inputDate"); // Limpiar la fecha de localStorage
         history.push("/dashboard/cotizaciones");
     };
 
@@ -144,6 +163,7 @@ const NewQuotation = () => {
         localStorage.setItem("inputClient", inputClient);
         localStorage.setItem("inputProvider", inputProvider);
         localStorage.setItem("inputObservations", inputObservations);
+        localStorage.setItem("inputDate", inputDate);
         const filesToSave = files.map(file => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -157,12 +177,12 @@ const NewQuotation = () => {
                 };
             });
         });
-
+    
         Promise.all(filesToSave).then(savedFiles => {
             localStorage.setItem("files", JSON.stringify(savedFiles));
             history.push({
                 pathname: "/dashboard/addproduct",
-                state: { orderId: "new", returnPath: "/dashboard/newquotation" }
+                state: { orderId: "new", returnPath: "/dashboard/newquotation", inputDate } // Pasar la fecha seleccionada
             });
         });
     };
@@ -212,6 +232,18 @@ const NewQuotation = () => {
                         </select>
                     </div>
                     <div className="div-cliente-newquotation">
+                        <label className="label_solicitud_newquotation">Fecha de Entrega:</label>
+                        <input
+                            className="row_input"
+                            type="date"
+                            value={inputDate}
+                            onChange={(e) => {
+                                setInputDate(e.target.value);
+                                localStorage.setItem("inputDate", e.target.value); // Guardar la fecha en localStorage
+                            }}
+                        />
+                    </div>
+                    <div className="div-cliente-newquotation">
                         <label className="label_solicitud_newquotation">Observaciones:</label>
                         <textarea className="textarea_input" value={inputObservations} onChange={(e) => setInputObservations(e.target.value)} />
                     </div>
@@ -245,13 +277,11 @@ const NewQuotation = () => {
                             ))}
                         </ul>
                     </div>
-                    {orderItems.length === 0 && (
                         <div>
                             <button className="newquotation__submit" type="button" onClick={handleAddProduct}>
                                 Agregar Producto
                             </button>
                         </div>
-                    )}
                 </form>
                 <h3>Productos Agregados</h3>
                 <table className="responsive-table">

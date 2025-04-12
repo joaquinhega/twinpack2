@@ -1,6 +1,5 @@
 // Informacion de las celdas en AnimatedModal. NO SE USA
 
-import { useState} from "react";
 const ProductCell = ({
     description,
     quantity,
@@ -9,9 +8,8 @@ const ProductCell = ({
     categoria_nombre,
     observations
 }) => {
-    const [ setShow] = useState(false);
     return (
-            <tr className="product" onClick={() => setShow(true)}>
+            <tr className="product">
                 <td data-title="Categoria" className="product_proveedor">{categoria_nombre}</td>
                 <td data-title="Descripción" className="product_laboratorio">{description}</td>
                 <td data-title="Cantidad" className="product_proveedor">{number}</td>

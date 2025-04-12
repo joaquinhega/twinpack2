@@ -33,6 +33,9 @@ a {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    width: 100%;
+    height: auto;
+    overflow: visible;
 
   @media (min-width: $bp-bart) {
     margin: 2%;
@@ -51,6 +54,7 @@ a {
   width: 90%;
   margin-bottom: 1.5em;
   cursor:default;
+  overflow: hidden;
   border-collapse: collapse;
 
   @media (min-width: $bp-bart) {

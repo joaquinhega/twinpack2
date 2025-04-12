@@ -3,10 +3,14 @@ import ProductCellOrder from "./ProductCellOrder";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { UserContext } from "../contexts/UserContext";
 import { FaSortAlphaDown } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fechaDesde, fechaHasta }) => {
     const { pagination, setNumberPages } = useContext(PaginationContext);
     const { user } = useContext(UserContext);
+    const history = useHistory();
     const [productsToFetch, setProductsToFetch] = useState([]);
     const [sortColumn, setSortColumn] = useState("id");
     const [currentPage, setCurrentPage] = useState(1);
@@ -86,6 +90,35 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
         return product.cliente.toLowerCase().includes(searchValue) || product.proveedor.toLowerCase().includes(searchValue);
     });
 
+    const handleEdit = (productId) => {
+        console.log("Editando orden con ID:", productId);
+        history.push({
+            pathname: `/dashboard/editquotation/${productId}`,
+            state: { from: "ProductTableOrder" }, 
+        });    };
+    
+    const handleDelete = async (productId) => {
+        const confirmDelete = window.confirm(`¿Estás seguro de que deseas eliminar la orden ${productId}?`);
+        if (confirmDelete) {
+            console.log("Eliminando orden con ID:", productId);
+            try {
+                const response = await axios.post(
+                    'http://localhost/pruebaTwinpack/php/eliminar_orden.php',
+                    new URLSearchParams({ id: productId })
+                );
+                if (response.data.status === "success") {
+                    toast.success(`Orden ${productId} eliminado correctamente`);
+                    traerItems(); // Actualiza la tabla después de eliminar
+                } else {
+                    toast.error("Error al eliminar la orden");
+                }
+            } catch (error) {
+                console.error("Error al eliminar la orden:", error);
+                toast.error("Error al eliminar la orden");
+            }
+        }
+    };
+
     const displayedProducts = paginatedProducts(filteredBySearch);
 
     return (
@@ -95,13 +128,14 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
                     <thead>
                         <tr>
                             <th scope="col" id="responsive-table__cantidad">Nº Solicitud<FaSortAlphaDown onClick={() => sortTable('id')} className="sort_icon"></FaSortAlphaDown></th>
+                            <th scope="col" id="responsive-table__proveedor">Usuario</th>
                             <th scope="col" id="responsive-table__nombreComercial">Cliente</th>
                             <th scope="col" id="responsive-table__proveedor">Proveedor</th>
                             <th scope="col" id="responsive-table__proveedor">Categoría</th>
                             <th scope="col" id="responsive-table__proveedor">Monto</th>
                             <th scope="col" id="responsive-table__suDescuento">Estado<FaSortAlphaDown onClick={() => sortTable('estado_id')} className="sort_icon"></FaSortAlphaDown></th>
                             <th scope="col" id="responsive-table__precio">Entrega Estimada<FaSortAlphaDown onClick={() => sortTable('fecha_solicitud')} className="sort_icon"></FaSortAlphaDown></th>
-                            <th scope="col">Ver Detalle</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +145,7 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
                                     key={product.id}
                                     id={product.id}
                                     numero_orden={product.numero_orden}
+                                    usuario={product.usuario}
                                     cliente={product.cliente}
                                     proveedor={product.proveedor}
                                     categoria={product.categoria}
@@ -119,6 +154,8 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
                                     fecha_entrega={product.fecha_entrega}
                                     observaciones={product.observaciones}
                                     delay={product.delay}
+                                    onEdit={() => handleEdit(product.id)}
+                                    onDelete={() => handleDelete(product.id)}
                                 />
                             ))
                         ) : (

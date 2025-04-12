@@ -1,112 +1,252 @@
-
-
 .modal {
-  background: white;
-  width: 98%;
-  margin: 1%;
-  height: 98vh;
-  min-height: 98vh;
+    background: white;
+    width: 95%;
+    margin: 1%;
+    height: 95vh;
+    border-radius: 10px;
+    overflow-y: auto;
 
-  overflow-y: hidden;
-  border-radius: 10px;
-  overflow-y: auto;
-
-  &_image {
-    &_pami {
-      position: absolute;
-      right: 2%;
-      top: 15%;
-      width: 100px;
+    &_image {
+        &_close {
+            position: absolute;
+            top: 3%;
+            left: 95%;
+            cursor: pointer;
+        }
     }
-    &_close {
-      position: absolute;
-      top: 3%;
-      left: 95%;
-      cursor: pointer;
-    }
-  }
 }
 
 .paper {
-  background: white;
-  padding: 50px 5%;
-  outline: none;
-  height: 100%;
-}
-.half_paper_left{
-  margin-left: 20px;
-  width: 40%;
-  display: inline-block;
-  vertical-align: top;
+    background: white;
+    padding: 50px 5%;
+    outline: none;
+    height: 98%;
+    border-radius: 10px;
+    margin-left: 25px;
 }
 
-.half_paper_right{
-  width: 58%;
-  display: inline-block;
-  vertical-align: top;
+.half_paper_left {
+    margin-left: 20px;
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.pp_detalle{
-  margin: 5px 10px 5px 5px;
-  vertical-align: top;
+.half_paper_right {
+    width: 58%;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.pp_status{
-  width: 35%;
+.pp_detalle {
+    margin: 5px 10px 5px 5px;
+    vertical-align: top;
 }
 
-.pp_status_date{
-  background:transparent;
-  border: none;
+.pp_status {
+    width: 35%;
 }
 
-.pp_status_obs{
-  width: 50%;
-  resize: none;
-  background:transparent;
-  padding-top: 5px;
-  border: none;
-  min-height: 30px;
+.pp_status_date {
+    background: transparent;
+    border: none;
 }
 
-.label_status{
-  display: inline-block;
-  margin: 0px 10px;
-  color: black;
+.pp_status_obs {
+    width: 50%;
+    resize: none;
+    background: transparent;
+    padding-top: 5px;
+    border: none;
+    min-height: 30px;
 }
 
-.radio_status{
-  display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border:solid 1px $colorSecundario;
-  margin-left: -12px;
+.label_status {
+    display: inline-block;
+    margin: 0px 50px;
+    color: black;
 }
 
-.div_status{
-  border-left: solid 4px $colorSecundario;
-  width: 100%;
-  padding: 8px 0px;
-  display: inline-block;
+.radio_status {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 1px $colorSecundario;
+    margin-left: -12px;
 }
 
-.icon_edit{
-  margin-right: 10px;
-  vertical-align: middle;
-  width: 15px;
-  height: 15px;
-  color: rgb(80,80,80);
-  float: right;
+.div_status {
+    border-left: solid 4px $colorSecundario;
+    width: 100%;
+    padding: 8px 0px;
+    display: inline-block;
 }
 
-.file_edit{
-  cursor: pointer;
+.icon_edit {
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 15px;
+    height: 15px;
+    color: rgb(80, 80, 80);
+    float: right;
 }
-.graph{
-  width: 100%;
-  height: 100%;
-  margin-left: 150px;
-  padding: 0px;
+
+.file_edit {
+    cursor: pointer;
+}
+
+.graph {
+    width: 100%;
+    height: 100%;
+    margin-left: 150px;
+    padding: 0px;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #dbdbdb;
+    padding: 10px;
+    border-radius: 10px;
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid $colorSecundario;
+            background-color: white;
+            margin-bottom: 5px;
+        }
+
+        .label {
+            font-size: 14px;
+        }
+    }
+}
+
+.files {
+    margin-top: 20px;
+
+    .file {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+
+        .icon {
+            margin-right: 10px;
+        }
+
+        .name {
+            font-size: 14px;
+        }
+    }
+}
+
+.buttons {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+
+    button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit {
+        background-color: $colorPrincipal;
+        color: white;
+    }
+
+    .delete {
+        background-color: red;
+        color: white;
+    }
+    .editproductform__submit {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+    
+    .editproductform__submit:hover {
+        background-color: #0067d4;
+    }
+    .deleteproductform__submit {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+    .deleteproductform__submit:hover {
+        background-color: #c9302c;
+    }
+}
+
+.content_row{
+    display: flex;
+    gap: 60px;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+
+    .observaciones_div{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 90%;
+            min-height: 80px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid $colorSecundario;
+            resize: vertical;
+        }
+    }
+    .archivos_div{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        p{
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .files {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+            max-height: 160px; 
+            overflow-y: auto; 
+
+            .file {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    }
 }

@@ -10,8 +10,10 @@ import {FaPaintBrush} from "react-icons/fa";
 import {FaIndustry} from "react-icons/fa";
 import {FaCalendarCheck} from "react-icons/fa";
 import {useHistory} from "react-router-dom";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
-const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_total, categoria,proveedor,observaciones,motivo_no_asignacion,fecha_entrega,id,estado,delay}) => {
+const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_total, categoria,proveedor,observaciones,motivo_no_asignacion,fecha_entrega,id,estado,delay,usuario,onEdit, onDelete,}) => {
     const [show,setShow] = useState(false);
     let history = useHistory();
 
@@ -65,7 +67,8 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
             <AnimatedModalOrder show={show} handleClose={() => setShow(false)}
                 hasChange={hasChange}
                 setHasChange={setHasChange}
-                id={id} 
+                id={id}
+                usuario={usuario}
                 numero_orden={numero_orden}
                 cliente={cliente}
                 proveedor={proveedor}
@@ -78,6 +81,7 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
             } 
             <tr className="product">
                 <td data-title="Cantidad" onClick={() => setShow(true)}>{numero_orden}</td>
+                <td data-title="Producto" className="product_proveedor" onClick={() => setShow(true)}>{usuario}</td>            
                 <td data-title="Producto" className="product_proveedor" onClick={() => setShow(true)}>{cliente}</td>            
                 <td data-title="proveedor" className="product_proveedor" onClick={() => setShow(true)}>{proveedor}</td>
                 <td data-title="Categoria" className="product_proveedor" onClick={() => setShow(true)}>{categoria}</td>
@@ -90,9 +94,26 @@ const ProductCellOrder = ({hasChange,setHasChange, numero_orden, cliente, monto_
                     {fecha_entrega}
                     <FaCalendarCheck className="product_image_status" style={{color:getColor(delay)}}/>
                 </td>
-                <td data-title="Precio" className="product_proveedor" onClick={() => openDetail(id,numero_orden)}>
-                    <FaList className="product_image_status"/>
+                <td data-title="Acciones" className="product_proveedor" onClick={() => setShow(true)}>
+                    <div className="actions" style={{ display: 'flex', alignItems: 'center', gap: '5px', flexWrap: 'nowrap' }}>
+                    <FaList
+                        className="action-icon"
+                        onClick={() => openDetail(id, numero_orden)} // Detalle
+                        style={{ width: '28px', height: '28px', cursor: 'pointer', marginRight: '10px' }}
+                    />
+                    <FaRegEdit
+                        className="action-icon"
+                        onClick= {onEdit} // Acción de edición
+                        style={{ width: '28px', height: '28px', cursor: 'pointer', marginRight: '10px' }}
+                    />
+                    <MdDelete
+                        className="action-icon"
+                        onClick={onDelete} // Acción de eliminación
+                        style={{ width: '28px', height: '28px', cursor: 'pointer' }}
+                    />
+                </div>
                 </td>
+
             </tr>
         </>
     )

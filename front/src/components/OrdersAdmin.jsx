@@ -123,8 +123,10 @@ const OrdersAdmin = () => {
     };
     const handleEditOrder = (orderId) => {
         setSelectedOrder(orderId);
-        history.push(`/dashboard/editquotation/${orderId}`);
-    };
+        history.push({
+            pathname: `/dashboard/editquotation/${orderId}`,
+            state: { from: "OrdersAdmin" }, // Indicar el origen
+        });    };
     
     const handleDeleteOrder = async (orderId) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta orden?");

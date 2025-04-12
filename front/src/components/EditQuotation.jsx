@@ -4,10 +4,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 import { FaFileUpload } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const EditQuotation = () => {
     const { orderId } = useParams();
     const history = useHistory();
+    const location = useLocation();
     const [clients, setClients] = useState([]);
     const [providers, setProviders] = useState([]);
     const [inputClient, setInputClient] = useState("");
@@ -15,11 +17,12 @@ const EditQuotation = () => {
     const [inputObservations, setInputObservations] = useState("");
     const [inputAmount, setInputAmount] = useState("");
     const [files, setFiles] = useState([]);
+    const [deliveryDate, setDeliveryDate] = useState("");
+    const from = location.state?.from || "OrdersAdmin"; 
 
     useEffect(() => {
         const fetchClientsAndProviders = async () => {
             try {
-//                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
                 const itemsArray = response.data;
                 setClients(itemsArray.filter(item => item.tipo_other === 2));
@@ -31,16 +34,19 @@ const EditQuotation = () => {
 
         const fetchOrderDetails = async () => {
             try {
-//                const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
-                    const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
-                        orderId: orderId
+                const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
+                    orderId: orderId
                 }));
+                console.log("Respuesta del servidor", response.data);
                 if (response.data) {
                     setInputClient(response.data.cliente_id);
                     setInputProvider(response.data.proveedor_id);
                     setInputObservations(response.data.observaciones);
-                    setInputAmount(parseFloat(response.data.monto_total).toFixed(2)); // Convertir a número y redondear a dos decimales
+                    setInputAmount(parseFloat(response.data.monto_total).toFixed(2)); 
+                    setDeliveryDate(response.data.fecha); 
+                    setFiles(response.data.archivos || []); 
                 }
+                console.log("Archivos cargados:", response.data.archivos);
             } catch (error) {
                 console.error("Error al obtener los detalles de la orden:", error);
                 toast.error("Error al obtener los detalles de la orden");
@@ -52,7 +58,7 @@ const EditQuotation = () => {
     }, [orderId]);
 
     const handleSaveChanges = async () => {
-        if (!inputClient || !inputProvider || !inputObservations || !inputAmount) {
+        if (!inputClient || !inputProvider || !inputObservations || !inputAmount || !deliveryDate) {
             toast.error("Por favor, complete todos los campos antes de guardar los cambios.");
             return;
         }
@@ -63,37 +69,82 @@ const EditQuotation = () => {
             formData.append("Proveedor", inputProvider);
             formData.append("Observaciones", inputObservations);
             formData.append("Monto", parseFloat(inputAmount).toFixed(2));
+            formData.append("FechaEntrega", deliveryDate);
 
             files.forEach((file, index) => {
-                formData.append(`file_${index}`, file);
+                if (file instanceof File) {
+                    formData.append(`file_${index}`, file);
+                }
             });
 
-//            const response = await axios.post("https://twinpack.com.ar/sistema/php/editar_orden.php", formData, {
-                const response = await axios.post("http://localhost/pruebaTwinpack/php/editar_orden.php", formData, {
-                    headers: {
+            const response = await axios.post("http://localhost/pruebaTwinpack/php/editar_orden.php", formData, {
+                headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
 
             if (response.data.success) {
                 toast.success("Cotización actualizada con éxito.");
-                history.push("/dashboard/cotizaciones");
-            } else {
-                toast.error("Error: " + (response.data.message || "Respuesta no válida del servidor"));
+                if (from === "OrdersAdmin") {
+                    history.push("/dashboard/cotizaciones"); 
+                } else if (from === "ProductTableOrder") {
+                    history.push("/dashboard/orders"); 
+                }
             }
+
         } catch (error) {
+            console.log("Catch");
+
             toast.error("Error al actualizar la cotización.");
             console.error("Error al actualizar la cotización:", error);
         }
     };
 
     const handleCancel = () => {
-        history.push("/dashboard/cotizaciones");
+        if (from === "OrdersAdmin") {
+            history.push("/dashboard/cotizaciones"); // Redirigir a OrdersAdmin
+        } else if (from === "ProductTableOrder") {
+            history.push("/dashboard/orders"); // Redirigir a ProductTableOrder
+        }
     };
 
-    const handleDeleteFile = (fileIndex) => {
-        setFiles(files.filter((_, index) => index !== fileIndex));
-        toast.success("Archivo eliminado localmente");
+    const handleDeleteFile = async (fileIndex) => {
+        const fileToDelete = files[fileIndex];
+    
+        if (fileToDelete.origen === "ARCHIVOS") {
+            // El archivo proviene de la base de datos
+            const confirmDelete = window.confirm(
+                "Este archivo proviene de la base de datos. Si lo elimina, no podrá recuperarlo. ¿Desea continuar?"
+            );
+    
+            if (confirmDelete) {
+                try {
+                    const response = await axios.post(
+                        "http://localhost/pruebaTwinpack/php/eliminar_file.php",
+                        new URLSearchParams({
+                            nombre: fileToDelete.name || fileToDelete.nombre,
+                            origen: fileToDelete.origen,
+                        })
+                    );
+    
+                    if (response.data.success) {
+                        toast.success("Archivo eliminado correctamente.");
+                        setFiles((prevFiles) => prevFiles.filter((_, index) => index !== fileIndex));
+                    } else {
+                        toast.error("Error al eliminar el archivo: " + response.data.message);
+                    }
+                    console.log("Respuesta del servidor al eliminar archivo:", response.data);
+
+                } catch (error) {
+                    console.error("Error al eliminar el archivo:", error);
+                    toast.error("Error al eliminar el archivo.");
+                }
+            }
+        } else {
+            // El archivo es local
+            setFiles((prevFiles) => prevFiles.filter((_, index) => index !== fileIndex));
+            toast.success("Archivo eliminado localmente.");
+        }
     };
 
     return (
@@ -138,6 +189,15 @@ const EditQuotation = () => {
                         />
                     </div>
                     <div className="div-cliente-newquotation">
+                        <label className="label_solicitud_newquotation">Fecha de Entrega:</label>
+                        <input
+                            className="row_input"
+                            type="date"
+                            value={deliveryDate}
+                            onChange={(e) => setDeliveryDate(e.target.value)}
+                        />
+                    </div>
+                    <div className="div-cliente-newquotation">
                         <label className="file-upload-label">
                             <FaFileUpload size={20} />
                             <input
@@ -149,7 +209,6 @@ const EditQuotation = () => {
                                     setFiles([...files, ...selectedFiles]);
                                 }}
                             />
-                            Subir Archivo (PDF, Imágenes)
                         </label>
                     </div>
                     <div className="file-list">
@@ -157,11 +216,11 @@ const EditQuotation = () => {
                         <ul>
                             {files.map((file, index) => (
                                 <li key={index}>
-                                    {file.name}
+                                    {file.name || file.nombre}
                                     <MdDelete
                                         className="delete-file-icon"
                                         onClick={() => handleDeleteFile(index)}
-                                        style={{ cursor: 'pointer', marginLeft: '10px' }}
+                                        style={{ cursor: "pointer", marginLeft: "10px" }}
                                     />
                                 </li>
                             ))}

@@ -6,7 +6,7 @@ function Presupuesto() {
     const history = useHistory();
     const { orderId, totalAmount } = location.state || {};
     const [formData, setFormData] = useState({
-        monto: `$${totalAmount}`,
+        monto: `${totalAmount}`,
         fecha: "",
         destinatario: "",
         textoPresentacion: "",
@@ -171,12 +171,14 @@ function Presupuesto() {
                     </div>
                     {logoProveedor && (
                         <div className="div-cliente-presupuesto">
-                            <label className="label-presupuesto">Logo del Proveedor:</label>
-                            <img
-                                src={`http://localhost/pruebaTwinpack/php/logos/${logoProveedor}`}
-                                alt="Logo del proveedor"
-                                style={{ maxWidth: "150px", marginTop: "10px" }}
-                            />
+                            <div className="logo-proveedor">
+                                <label className="label-presupuesto">Logo del Proveedor:</label>
+                                <img
+                                    src={`http://localhost/pruebaTwinpack/php/logos/${logoProveedor}`}
+                                    alt="Logo del proveedor"
+                                    style={{ maxWidth: "150px", marginTop: "10px" }}
+                                />
+                            </div>
                         </div>
                     )}
                     <div className="div-botones-presupuesto">

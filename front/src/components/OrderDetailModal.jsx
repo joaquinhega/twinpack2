@@ -11,6 +11,7 @@ const OrderDetailModal = ({ order, onClose }) => {
     const [localProducts, setLocalProducts] = useState([]);
     const [discountedAmount, setDiscountedAmount] = useState(0); 
     const [orderFiles, setOrderFiles] = useState([]); 
+    const [orderDate, setOrderDate] = useState(""); // Nuevo estado para almacenar la fecha de la orden
     const isMounted = useRef(false);
 
     const fetchOrderDetails = () => {
@@ -27,6 +28,10 @@ const OrderDetailModal = ({ order, onClose }) => {
                     if (isMounted.current) {
                         setProducts(data[1] || []); 
                         setOrderFiles(data[2] || []); 
+
+                        if (data[1] && data[1].length > 0) {
+                            setOrderDate(data[1][0].date); // Guardar la fecha del primer producto
+                        }
                     }
                 } catch (error) {
                     console.error("Error al parsear la respuesta del servidor:", error);
@@ -61,7 +66,7 @@ const OrderDetailModal = ({ order, onClose }) => {
     const handleAddProduct = () => {
         history.push({
             pathname: "/dashboard/addproduct",
-            state: { orderId: order.id, returnPath: "/dashboard/cotizaciones", reopenModal: true }
+            state: { orderId: order.id, returnPath: "/dashboard/cotizaciones", reopenModal: true, inputDate: orderDate }
         });
     };
 
@@ -98,16 +103,19 @@ const OrderDetailModal = ({ order, onClose }) => {
             console.log("Datos enviados:", {
                 orderItems: JSON.stringify(localProducts),
                 order_id: order.id,
-                bandera: bandera
+                bandera: bandera,
+                source: "OrderDetailModal"
             });    
 //            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
                 const response = await axios.post('http://localhost/pruebaTwinpack/php/checkout.php', new URLSearchParams({
                     orderItems: JSON.stringify(localProducts),
-                order_id: order.id
+                order_id: order.id,
+                source: "OrderDetailModal"
             }));
         
-            if (response.data.message === "Productos agregados correctamente") {
+            if (response.data.message === "Producto agregado correctamente") {
                 toast.success("Productos agregados correctamente");
+                console.log("Respuesta del servidor:", response.data);
                 localStorage.removeItem('orderItems_new');
                 setLocalProducts([]);
                 fetchOrderDetails(); 
@@ -174,6 +182,7 @@ const OrderDetailModal = ({ order, onClose }) => {
 
     const handleClose = () => {
         localStorage.removeItem('orderItems_new');
+        window.location.reload();
         onClose();
     };
 
@@ -183,6 +192,7 @@ const OrderDetailModal = ({ order, onClose }) => {
                 <span className="close-details" onClick={handleClose}>&times;</span>
                 <h2 className="modal-title-details">Detalle de la Orden</h2>
                 <h3 className="modal-subtitle-details">Orden n° {order.id}</h3>
+                <button className="add-product-button-details" onClick={handleAddProduct}>Agregar Producto</button>
                 <h3>Productos agregados</h3>
                 <table className="responsive-table">
                     <thead>
@@ -261,23 +271,23 @@ const OrderDetailModal = ({ order, onClose }) => {
                 )}
                 <h3>Archivos adjuntos</h3>
                 {orderFiles.length > 0 ? (
-                    <ul>
-                        {orderFiles.map((file, index) => (
-                            <li key={index}>
-                                <a href={`http://localhost/pruebaTwinpack/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
-                                    {file.nombre}
-                                </a>
-                                <MdDelete
-                                    className="delete-file-icon"
-                                    onClick={() => handleDeleteFile(file)}
-                                    style={{ cursor: 'pointer', marginLeft: '10px' }}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No se han adjuntado archivos</p>
-                )}
+                <ul>
+                    {orderFiles.map((file, index) => (
+                        <li key={index}>
+                            <a href={`http://localhost/pruebaTwinpack/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
+                                {file.nombre}
+                            </a>
+                            <MdDelete
+                                className="delete-file-icon"
+                                onClick={() => handleDeleteFile(file)}
+                                style={{ cursor: 'pointer', marginLeft: '10px' }}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No se han adjuntado archivos</p>
+            )}
                 <div className="total-amount-details">
                     <h3>Monto Total: ${calculateTotalAmount()}</h3>
                     {calculateTotalAmount() !== discountedAmount && (

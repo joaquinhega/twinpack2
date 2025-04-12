@@ -19,7 +19,6 @@ const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
 
     useEffect(() => {
-        
 //        axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php')
         axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php')
             .then((response) => {
@@ -28,7 +27,9 @@ const AddProduct = () => {
             .catch((error) => {
                 console.error("Error fetching categories:", error);
             });
-    }, []);
+            const savedDate = location.state?.inputDate || ""; 
+            setInputDate(savedDate); 
+        }, [location.state]);
 
     const handleCancel = () => {
         history.push({
@@ -38,7 +39,7 @@ const AddProduct = () => {
     };
 
     const handleAddProduct = async () => {
-        if (!inputQuantity || !inputPrice || !inputDescription || !inputDate || !selectedCategory) {
+        if (!inputQuantity || !inputPrice || !inputDescription || !selectedCategory) {
             toast.error("Por favor, complete todos los campos antes de agregar el ítem.");
             return;
         }
@@ -53,7 +54,7 @@ const AddProduct = () => {
             observations: inputObservations,
             user_id: user.id 
         };
-
+        console.log("New item en AddProduct:", newItem);
         const storedProducts = JSON.parse(localStorage.getItem('orderItems_new')) || [];
         storedProducts.push(newItem);
         localStorage.setItem('orderItems_new', JSON.stringify(storedProducts));
@@ -92,10 +93,10 @@ const AddProduct = () => {
                         <label className="label_solicitud_addproduct">Precio:</label>
                         <input className="row_input" type="number" value={inputPrice} onChange={(e) => setInputPrice(e.target.value)} />
                     </div>
-                    <div className="div-cliente-addproduct">
+                    {/*<div className="div-cliente-addproduct">
                         <label className="label_solicitud_addproduct">Fecha de Entrega:</label>
                         <input  type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
-                    </div>
+                    </div>*/}
                     <div className="div-cliente-addproduct">
                         <label className="label_solicitud_addproduct">Número de Plano:</label>
                         <input className="row_input" type="text" value={inputNumber} onChange={(e) => setInputNumber(e.target.value)} />
