@@ -44,7 +44,8 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
             }
         };
         var cadenaParametros = `ID=${encodeURIComponent(id)}`;
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_orden_status.php', true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_orden_status.php', true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_orden_status.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     }
@@ -114,7 +115,8 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
         formData.append("Observaciones", statusObs);
 
         axios
-            .post("http://localhost/pruebaTwinpack/php/guardar_datos.php", formData)
+            .post("https://twinpack.com.ar/sistema/php/guardar_datos.php", formData)
+//            .post("http://localhost/pruebaTwinpack/php/guardar_datos.php", formData)
             .then((res) => {
                 if (res.data.logs) {
                     res.data.logs.forEach(log => console.log(log));
@@ -140,7 +142,8 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
 
     const traerArchivos = () => {
         const params = new URLSearchParams({ ID: id }).toString();
-        axios.post('http://localhost/pruebaTwinpack/php/buscar_archivos.php', params)
+        axios.post('https://twinpack.com.ar/sistema/php/buscar_archivos.php', params)
+//        axios.post('http://localhost/pruebaTwinpack/php/buscar_archivos.php', params)
             .then(response => {
                 if (response.data && Array.isArray(response.data.files)) {
                     setFiles(response.data.files);
@@ -162,7 +165,8 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
         data.append('ID', id);
         data.append('StatusItems', JSON.stringify(status_item_new));
 
-        axios.post('http://localhost/pruebaTwinpack/php/guardar_estados_todos.php', data)
+        axios.post('https://twinpack.com.ar/sistema/php/guardar_estados_todos.php', data)
+//        axios.post('http://localhost/pruebaTwinpack/php/guardar_estados_todos.php', data)
             .then(response => {
                 if (response.data.logs) {
                     response.data.logs.forEach(log => console.log(log));
@@ -187,7 +191,8 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
         if (confirmDelete) {
             try {
                 const response = await axios.post(
-                    'http://localhost/pruebaTwinpack/php/eliminar_file.php',
+                    'https://twinpack.com.ar/sistema/php/eliminar_file.php',
+//                    'http://localhost/pruebaTwinpack/php/eliminar_file.php',
                     new URLSearchParams({ nombre: file.nombre, origen: file.origen })
                 );
                 if (response.data.message === "Archivo eliminado correctamente") {
@@ -290,7 +295,7 @@ export default function AnimatedModal({ show, handleClose, id, cliente, numero_o
                                                 <div key={file.nombre} className="file">
                                                     <a
                                                         target="_blank"
-                                                        href={`http://localhost/pruebaTwinpack/php/uploads/${file.nombre}`}
+                                                        href={`https://twinpack.com.ar/sistema/php/uploads/${file.nombre}`}
                                                         rel="noopener noreferrer"
                                                     >
                                                         <p className="name">{file.nombre}</p>

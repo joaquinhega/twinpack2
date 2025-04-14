@@ -46,8 +46,8 @@ $condiciones = $_POST['condiciones'];
 $order_id = $_POST['orderId'];
 $nombre_usuario = $_POST['nombreUsuario'];
 $logoPath = $_POST['logoPath'];
-//$logoDir = "http://localhost/pruebaTwinpack/php/logos/$logoPath";
-$logoDir = "http://localhost/pruebaTwinpack/php/logos/" . basename($logoPath);
+$logoDir = "https://twinpack.com.ar/sistema/php/logos/" . basename($logoPath);
+//$logoDir = "http://localhost/pruebaTwinpack/php/logos/" . basename($logoPath);
 error_log("Generando PDF para la orden con ID: $order_id");
 error_log("Datos recibidos: monto: $monto, fecha: $fecha, destinatario: $destinatario, texto_presentacion: $texto_presentacion, condiciones: $condiciones, order_id: $order_id, nombre_usuario: $nombre_usuario, logoPath: $logoPath");
 
@@ -148,9 +148,9 @@ $pdf->Ln(10); // Salto de línea
 // Total
 $pdf->SetFont('Arial', 'B', 12);
 if($totalProductos == $monto){
-    $pdf->Cell(0, 10, utf8_decode("Total: $totalProductos"), 0, 1, 'R');
+    $pdf->Cell(0, 10, utf8_decode("Total: $$totalProductos"), 0, 1, 'R');
 } else {
-    $pdf->Cell(0, 10, utf8_decode("Total reducido: $monto"), 0, 1, 'R');    
+    $pdf->Cell(0, 10, utf8_decode("Total reducido: $$monto"), 0, 1, 'R');    
 }
 $pdf->Ln(10);
 

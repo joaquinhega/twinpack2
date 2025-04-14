@@ -32,8 +32,8 @@ const ProductTable = () => {
             }
         };
         var cadenaParametros = `Sort=${encodeURIComponent(sortColumn)}&SelectedPage=${encodeURIComponent(pagination.selectedPage)}&idCuenta=${encodeURIComponent(user.idCuenta)}&idOrder=${encodeURIComponent(idOrden)}`;
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_items.php', true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_items.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
         return itemsArray;

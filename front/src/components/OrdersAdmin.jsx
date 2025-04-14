@@ -42,8 +42,8 @@ const OrdersAdmin = () => {
             }
         };
         var cadenaParametros = "Search=&Filter=&Sort=id&SelectedPage=1";
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_solicitudes_nuevas.php', true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_solicitudes_nuevas.php', true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_solicitudes_nuevas.php', true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_solicitudes_nuevas.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
         return itemsArray;
@@ -72,8 +72,8 @@ const OrdersAdmin = () => {
             }
         };
         var cadenaParametros = "";
-//        xmlhttp2.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_terceros.php', true);
-        xmlhttp2.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_terceros.php', true);
+        xmlhttp2.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_terceros.php', true);
+//        xmlhttp2.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_terceros.php', true);
         xmlhttp2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp2.send(cadenaParametros);
         return itemsArray;
@@ -98,8 +98,8 @@ const OrdersAdmin = () => {
         const formData = new FormData();
         formData.append("Ordenes", JSON.stringify(ordersEdited));
         axios
-//            .post("https://twinpack.com.ar/sistema/php/recibir_solicitudes.php", formData)
-            .post("http://localhost/pruebaTwinpack/php/recibir_solicitudes.php", formData)
+            .post("https://twinpack.com.ar/sistema/php/recibir_solicitudes.php", formData)
+//            .post("http://localhost/pruebaTwinpack/php/recibir_solicitudes.php", formData)
             .then((res) => {
                 if (res.data === "Debe iniciar Sesion") {
                     history.push("/");
@@ -133,8 +133,8 @@ const OrdersAdmin = () => {
         if (confirmDelete) {
             try {
                 const response = await axios.post(
-//                    'https://twinpack.com.ar/sistema/php/eliminar_orden.php',
-                    'http://localhost/pruebaTwinpack/php/eliminar_orden.php',
+                    'https://twinpack.com.ar/sistema/php/eliminar_orden.php',
+//                    'http://localhost/pruebaTwinpack/php/eliminar_orden.php',
                     new URLSearchParams({ id: orderId })
                 );
                 if (response.data.status === "success") {

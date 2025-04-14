@@ -34,7 +34,8 @@ const SuppliersAdmin = () => {
     };
 
     const fetchSuppliers = async () => {
-        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
+        const response = await fetch('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+//        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
         const data = await response.json();
         if (data === "Debe iniciar Sesion") {
             history.push("/");
@@ -51,15 +52,16 @@ const SuppliersAdmin = () => {
                 formData.append("Logo", newSupplierLogo);
             } 
 
-            const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_proveedor.php', {
-                method: 'POST',
+            const response = await fetch('https://twinpack.com.ar/sistema/php/guardar_proveedor.php', {
+//                const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_proveedor.php', {
+                    method: 'POST',
                 body: formData,
             });
-            const result = await response.text();
-            if (result === "Debe iniciar Sesion") {
+            const resultado = await response.text();
+            if (resultado === "Debe iniciar Sesion") {
                 history.push("/");
             } else {
-                toast.success(result);
+                toast.success(resultado);
                 fetchSuppliers();
                 setNewSupplier("");
                 setNewSupplierLogo(null);
@@ -74,23 +76,40 @@ const SuppliersAdmin = () => {
         if (editingSupplier) {
             const formData = new FormData();
             formData.append("id", editingSupplier.id);
-            formData.append("newData", editingSupplier.tercero); // Nombre actualizado
+            formData.append("newData", editingSupplier.tercero);
+    
+            console.log("Inicio del proceso de edición del proveedor.");
+            console.log("ID del proveedor:", editingSupplier.id);
+            console.log("Nuevo nombre del proveedor:", editingSupplier.tercero);
+    
             if (editingSupplierLogo) {
-                formData.append("Logo", editingSupplierLogo); // Logo actualizado
+                formData.append("Logo", editingSupplierLogo);
+                console.log("Logo cargado para el proveedor:", editingSupplierLogo);
+            } else {
+                console.log("No se cargó un nuevo logo.");
             }
     
-            const response = await fetch('http://localhost/pruebaTwinpack/php/editar_proveedor.php', {
-                method: 'POST',
-                body: formData,
-            });
-            const result = await response.text();
-            if (result === "Debe iniciar Sesion") {
-                history.push("/");
-            } else {
-                toast.success(result);
-                fetchSuppliers();
-                setPreviewLogo(null);
-                closeEditModal();
+            try {
+                console.log("Enviando solicitud de edición del proveedor...");
+                const respon = await fetch('https://twinpack.com.ar/sistema/php/editar_proveedor.php', {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                const resultado = await respon.text();
+                console.log("Respuesta del servidor:", resultado);
+    
+                if (resultado === "Debe iniciar Sesion") {
+                    history.push("/");
+                } else {
+                    toast.success(resultado);
+                    fetchSuppliers();
+                    setPreviewLogo(null);
+                    closeEditModal();
+                }
+            } catch (error) {
+                console.error("Error al enviar la solicitud de edición del proveedor:", error);
+                toast.error("Error al editar el proveedor.");
             }
         } else {
             toast.error("Por favor, complete todos los campos.");
@@ -100,17 +119,18 @@ const SuppliersAdmin = () => {
     const handleDeleteSupplier = async (supplierId) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este proveedor?");
         if (confirmDelete) {
-            const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_proveedor.php', {
-                method: 'POST',
+            const response = await fetch('https://twinpack.com.ar/sistema/php/eliminar_proveedor.php', {
+//                const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_proveedor.php', {
+                    method: 'POST',
                 body: new URLSearchParams({
                     id: supplierId,
                 }),
             });
-            const result = await response.text();
-            if (result === "Debe iniciar Sesion") {
+            const resultado = await response.text();
+            if (resultado === "Debe iniciar Sesion") {
                 history.push("/");
             } else {
-                toast.success(result);
+                toast.success(resultado);
                 fetchSuppliers();
             }
         }
@@ -290,7 +310,7 @@ const SuppliersAdmin = () => {
                                     <div className="current-logo">
                                         <p>Logo actual:</p>
                                         <img
-                                            src={`http://localhost/pruebaTwinpack/php/logos/${editingSupplier.logo}`}
+                                            src={`https://twinpack.com.ar/sistema/php/logos/${editingSupplier.logo}`}
                                             alt="Logo del proveedor"
                                             style={{ maxWidth: '100px', marginBottom: '10px' }}
                                         />

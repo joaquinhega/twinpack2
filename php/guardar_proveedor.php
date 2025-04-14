@@ -15,7 +15,7 @@ if (isset($_POST['Proveedor'])) {
         mkdir($uploadDir, 0777, true); 
     }
 
-    $fileName = null; // Inicializar como null
+    $fileName = null;
     if ($logo) {
         $fileName = uniqid() . '_' . basename($logo['name']);
         $uploadFile = $uploadDir . $fileName;
@@ -29,7 +29,7 @@ if (isset($_POST['Proveedor'])) {
     $sql1 = "INSERT INTO PROVEEDORES (proveedor, logo, activo) VALUES (:proveedor, :logo, 1)";
     $ejecucionSQL1 = $conexionPDO->prepare($sql1);
     $ejecucionSQL1->bindParam(':proveedor', $proveedor);
-    $ejecucionSQL1->bindParam(':logo', $fileName); // Si no hay logo, se enviará null
+    $ejecucionSQL1->bindParam(':logo', $fileName); 
 
     if ($ejecucionSQL1->execute()) {
         echo "Proveedor guardado correctamente";

@@ -4,9 +4,8 @@ include_once 'cors.php';
 
 $servidor='localhost';
 //bd-user: c2530768_sistema
-$bd='twinpack';
-//user: c2530768_sistema
-$usuario='root';
+$bd='c2530768_sistema';
+$usuario='c2530768_sistema';
 //pass: 55zuGIgime
-$clave='';
+$clave='55zuGIgime';
 ?>

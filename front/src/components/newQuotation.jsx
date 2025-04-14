@@ -24,8 +24,8 @@ const NewQuotation = () => {
     useEffect(() => {
         const fetchClientsAndProviders = async () => {
             try {
-//                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
+                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
                 const itemsArray = response.data;
                 setClients(itemsArray.filter(item => item.tipo_other === 2));
                 setProviders(itemsArray.filter(item => item.tipo_other === 3));
@@ -36,8 +36,8 @@ const NewQuotation = () => {
 
         const fetchCategories = async () => {
             try {
-//                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
+                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -52,7 +52,7 @@ const NewQuotation = () => {
         setInputClient(localStorage.getItem("inputClient") || "");
         setInputProvider(localStorage.getItem("inputProvider") || "");
         setInputObservations(localStorage.getItem("inputObservations") || "");
-        setInputDate(localStorage.getItem("inputDate") || ""); // Cargar la fecha desde localStorage
+        setInputDate(localStorage.getItem("inputDate") || ""); 
 
         const savedFiles = JSON.parse(localStorage.getItem("files")) || [];
         const loadedFiles = savedFiles.map(file => {
@@ -97,7 +97,7 @@ const NewQuotation = () => {
         const totalAmount = calculateTotalAmount();
         const updatedOrderItems = orderItems.map((item) => ({
             ...item,
-            date: inputDate, // Asignar la fecha seleccionada
+            date: inputDate, 
         }));
 
         try {
@@ -106,15 +106,15 @@ const NewQuotation = () => {
             formData.append("Proveedor", inputProvider);
             formData.append("Observaciones", inputObservations);
             formData.append("user_id", user.id);
-            formData.append("orderItems", JSON.stringify(updatedOrderItems)); // Enviar los ítems con la fecha asignada
+            formData.append("orderItems", JSON.stringify(updatedOrderItems));
             formData.append("totalAmount", totalAmount);
-            formData.append("source", "newQuotation"); // Indicar el origen
+            formData.append("source", "newQuotation"); 
             files.forEach((file, index) => {
                 formData.append(`file_${index}`, file);
             });
 
-//            axios.post("https://twinpack.com.ar/sistema/php/checkoutOrder.php", formData)
-            axios.post("http://localhost/pruebaTwinpack/php/checkoutOrder.php", formData)
+            axios.post("https://twinpack.com.ar/sistema/php/checkoutOrder.php", formData)
+//            axios.post("http://localhost/pruebaTwinpack/php/checkoutOrder.php", formData)
                 .then((res) => {
                     if (res.data[0] === "Solicitud enviada correctamente") {
                         toast.success("Cotización enviada con éxito.");
@@ -122,7 +122,7 @@ const NewQuotation = () => {
                         localStorage.removeItem("inputClient");
                         localStorage.removeItem("inputProvider");
                         localStorage.removeItem("inputObservations");
-                        localStorage.removeItem("inputDate"); // Limpiar la fecha de localStorage
+                        localStorage.removeItem("inputDate"); 
                         localStorage.removeItem("files");
                         history.push("/dashboard/cotizaciones");
                     } else {
@@ -144,7 +144,7 @@ const NewQuotation = () => {
         localStorage.removeItem("inputProvider");
         localStorage.removeItem("inputObservations");
         localStorage.removeItem("files");
-        localStorage.removeItem("inputDate"); // Limpiar la fecha de localStorage
+        localStorage.removeItem("inputDate"); 
         history.push("/dashboard/cotizaciones");
     };
 
@@ -171,7 +171,7 @@ const NewQuotation = () => {
             localStorage.setItem("files", JSON.stringify(savedFiles));
             history.push({
                 pathname: "/dashboard/addproduct",
-                state: { orderId: "new", returnPath: "/dashboard/newquotation", inputDate } // Pasar la fecha seleccionada
+                state: { orderId: "new", returnPath: "/dashboard/newquotation", inputDate } 
             });
         });
     };
@@ -228,7 +228,7 @@ const NewQuotation = () => {
                             value={inputDate}
                             onChange={(e) => {
                                 setInputDate(e.target.value);
-                                localStorage.setItem("inputDate", e.target.value); // Guardar la fecha en localStorage
+                                localStorage.setItem("inputDate", e.target.value); 
                             }}
                         />
                     </div>

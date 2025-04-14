@@ -1,5 +1,4 @@
 <?php
-//checkoutOrder.php
 include_once '../php/conexion1.php';
 include_once 'cors.php';
 
@@ -55,8 +54,8 @@ if ($ejecucionSQL1->execute()) {
 
     foreach ($orderItems as $item) {
         $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, "https://twinpack.com.ar/sistema/php/checkout.php");
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/pruebaTwinpack/php/checkout.php");
+        curl_setopt($ch, CURLOPT_URL, "https://twinpack.com.ar/sistema/php/checkout.php");
+//        curl_setopt($ch, CURLOPT_URL, "http://localhost/pruebaTwinpack/php/checkout.php");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
             'quantity' => $item['quantity'],
@@ -76,7 +75,7 @@ if ($ejecucionSQL1->execute()) {
         if (curl_errno($ch)) {
             $logs[] = "Error en cURL: " . curl_error($ch);
         } else {
-            $logs[] = "Respuesta de checkout.php: " . $response_item;
+            $logs[] = "Respuesta de checkout: " . $response_item;
         }
         curl_close($ch);
     }

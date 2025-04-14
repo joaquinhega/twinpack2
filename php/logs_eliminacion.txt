@@ -61,4 +61,12 @@ Referencia del archivo eliminada de la base de datosNombre del archivo: Cotizaci
 Origen: ARCHIVOS
 Ruta del archivo: uploads/Cotización Twinpack (1).pdf
 Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Presupuesto.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Presupuesto.pdf
+Archivo eliminado del sistema de archivos
+Referencia del archivo eliminada de la base de datosNombre del archivo: Cotización Twinpack 1.1.pdf
+Origen: ARCHIVOS
+Ruta del archivo: uploads/Cotización Twinpack 1.1.pdf
+Archivo eliminado del sistema de archivos
 Referencia del archivo eliminada de la base de datos

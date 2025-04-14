@@ -15,9 +15,9 @@ $ejecucionSQL1->bindParam(':newData', $newData, PDO::PARAM_STR);
 $ejecucionSQL1->bindParam(':categoriaId', $categoriaId, PDO::PARAM_INT);
 
 if ($ejecucionSQL1->execute()) {
-    echo "Cliente actualizado correctamente";
+    echo "Categoria actualizado correctamente";
 } else {
-    echo "Error al actualizar el cliente";
+    echo "Error al actualizar la categoria";
 }
 
 $conexionPDO = null;

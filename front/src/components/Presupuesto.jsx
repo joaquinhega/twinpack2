@@ -29,20 +29,18 @@ function Presupuesto() {
 
         const fetchOrderData = async () => {
             try {
-                console.log("Fetching order data for orderId:", orderId);
-                const response = await fetch("http://localhost/pruebaTwinpack/php/getOrderDetails.php", {
-                    method: "POST",
+                const response = await fetch("https://twinpack.com.ar/sistema/php/getOrderDetails.php", {
+//                    const response = await fetch("http://localhost/pruebaTwinpack/php/getOrderDetails.php", {
+                        method: "POST",
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded", // Cambiar a application/x-www-form-urlencoded
-                    },
-                    body: new URLSearchParams({ orderId }), // Usar URLSearchParams para enviar los datos
+                        "Content-Type": "application/x-www-form-urlencoded", 
+                   },
+                    body: new URLSearchParams({ orderId }), 
                 });
         
-                console.log("Response status:", response.status);
         
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Order data received from server:", data);
                     setLogoProveedor(data.logo);
                     setFormData((prevData) => ({
                         ...prevData,
@@ -68,9 +66,6 @@ function Presupuesto() {
     };
 
     const handleGeneratePDF = async () => {
-        console.log("Generando PDF con los siguientes datos:");
-        console.log("Formulario:", formData);
-        console.log("Logo del proveedor:", logoProveedor);
         formData.logoPath = logoProveedor;
         
         const formDataToSend = new FormData();
@@ -82,12 +77,12 @@ function Presupuesto() {
         }
 
         try {
-            const response = await fetch("http://localhost/pruebaTwinpack/php/generarPDF.php", {
-                method: "POST",
+            const response = await fetch("https://twinpack.com.ar/sistema/php/generarPDF.php", {
+//                const response = await fetch("http://localhost/pruebaTwinpack/php/generarPDF.php", {
+                    method: "POST",
                 body: formDataToSend,
             });
             if (response.ok) {
-                console.log("PDF generado exitosamente");
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement("a");
@@ -174,7 +169,7 @@ function Presupuesto() {
                             <div className="logo-proveedor">
                                 <label className="label-presupuesto">Logo del Proveedor:</label>
                                 <img
-                                    src={`http://localhost/pruebaTwinpack/php/logos/${logoProveedor}`}
+                                    src={`https://twinpack.com.ar/sistema/php/logos/${logoProveedor}`}
                                     alt="Logo del proveedor"
                                     style={{ maxWidth: "150px", marginTop: "10px" }}
                                 />

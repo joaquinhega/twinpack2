@@ -23,8 +23,8 @@ const CategoriesAdmin = () => {
     };
 
     const fetchCategories = async () => {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
-        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
+        const response = await fetch('https://twinpack.com.ar/sistema/php/buscar_categorias.php');
+//        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_categorias.php');
         const data = await response.json();
         if (data === "Debe iniciar Sesion") {
         history.push("/");
@@ -35,8 +35,8 @@ const CategoriesAdmin = () => {
 
     const handleAddCategory = async () => {
         if (newCategory) {
-//          const response = await fetch('https://twinpack.com.ar/sistema/php/guardar_categoria.php', {
-            const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_categoria.php', {
+          const response = await fetch('https://twinpack.com.ar/sistema/php/guardar_categoria.php', {
+//            const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_categoria.php', {
                 method: 'POST',
                 body: new URLSearchParams({
                 Categoria: newCategory,
@@ -57,8 +57,8 @@ const CategoriesAdmin = () => {
         const newCategoryData = prompt("Ingresa los nuevos datos para la categoría");
 
         if (newCategoryData) {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/editar_categoria.php', {
-        const response = await fetch('http://localhost/pruebaTwinpack/php/editar_categoria.php', {
+        const response = await fetch('https://twinpack.com.ar/sistema/php/editar_categoria.php', {
+//        const response = await fetch('http://localhost/pruebaTwinpack/php/editar_categoria.php', {
         method: 'POST',
             body: new URLSearchParams({
             id: categoryId,
@@ -78,8 +78,8 @@ const CategoriesAdmin = () => {
     const handleDeleteCategory = async (categoryId) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta categoría?");
         if (confirmDelete) {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/eliminar_categoria.php', {
-    const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_categoria.php', {
+        const response = await fetch('https://twinpack.com.ar/sistema/php/eliminar_categoria.php', {
+//    const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_categoria.php', {
         method: 'POST',
             body: new URLSearchParams({
             id: categoryId,

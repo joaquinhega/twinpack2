@@ -11,7 +11,7 @@ const OrderDetailModal = ({ order, onClose }) => {
     const [localProducts, setLocalProducts] = useState([]);
     const [discountedAmount, setDiscountedAmount] = useState(0); 
     const [orderFiles, setOrderFiles] = useState([]); 
-    const [orderDate, setOrderDate] = useState(""); // Nuevo estado para almacenar la fecha de la orden
+    const [orderDate, setOrderDate] = useState("");
     const isMounted = useRef(false);
 
     const fetchOrderDetails = () => {
@@ -30,7 +30,7 @@ const OrderDetailModal = ({ order, onClose }) => {
                         setOrderFiles(data[2] || []); 
 
                         if (data[1] && data[1].length > 0) {
-                            setOrderDate(data[1][0].date); // Guardar la fecha del primer producto
+                            setOrderDate(data[1][0].date); 
                         }
                     }
                 } catch (error) {
@@ -39,8 +39,8 @@ const OrderDetailModal = ({ order, onClose }) => {
             }
         };
         const cadenaParametros = `Sort=id&Search=&Filter=&SelectedPage=1&idOrder=${order.id}`;
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_items.php', true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_items.php', true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_items.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     };
@@ -81,8 +81,8 @@ const OrderDetailModal = ({ order, onClose }) => {
         const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
         if (confirmDelete) {
             try {
-//                const response = await axios.post('https://twinpack.com.ar/sistema/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
+                const response = await axios.post('https://twinpack.com.ar/sistema/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/eliminar_producto.php', new URLSearchParams({ id: product.id }));
                 if (response.data === "Producto eliminado correctamente") {
                     setProducts((prevProducts) => prevProducts.filter((p) => p.id !== product.id));
                     toast.success("Producto eliminado correctamente");
@@ -98,18 +98,18 @@ const OrderDetailModal = ({ order, onClose }) => {
     };
 
     const handleSaveChanges = async () => {
-        const bandera = 0;
         try {
-//            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/checkout.php', new URLSearchParams({
-                    orderItems: JSON.stringify(localProducts),
+            console.log("Local products to be added:", localProducts);
+            const response = await axios.post('https://twinpack.com.ar/sistema/php/checkout.php', new URLSearchParams({
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/checkout.php', new URLSearchParams({
+                orderItems: JSON.stringify(localProducts),
                 order_id: order.id,
                 source: "OrderDetailModal"
             }));
-        
-            if (response.data.message === "Producto agregado correctamente") {
-                toast.success("Productos agregados correctamente");
-                console.log("Respuesta del servidor:", response.data);
+            console.log("OrderItems", JSON.stringify(localProducts));
+            console.log("Response from server:", response.data);
+            if (response.data.message === "Producto(s) agregado(s) correctamente") {
+                toast.success("Producto(s) agregado(s) correctamente");
                 localStorage.removeItem('orderItems_new');
                 setLocalProducts([]);
                 fetchOrderDetails(); 
@@ -134,8 +134,8 @@ const OrderDetailModal = ({ order, onClose }) => {
         if (confirmDelete) {
             try {
                 const response = await axios.post(
-//                    'https://twinpack.com.ar/sistema/php/eliminar_file.php',
-                    'http://localhost/pruebaTwinpack/php/eliminar_file.php',
+                    'https://twinpack.com.ar/sistema/php/eliminar_file.php',
+//                    'http://localhost/pruebaTwinpack/php/eliminar_file.php',
                     new URLSearchParams({ nombre: file.nombre, origen: file.origen })
                 );
                 if (response.data.message === "Archivo eliminado correctamente") {
@@ -160,8 +160,8 @@ const OrderDetailModal = ({ order, onClose }) => {
 
     const fetchDiscountedAmount = async () => {
         try {
-//            const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
+            const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
                     orderId: order.id,
             }));
             if (response.data && response.data.monto_total) {
@@ -268,7 +268,7 @@ const OrderDetailModal = ({ order, onClose }) => {
                 <ul>
                     {orderFiles.map((file, index) => (
                         <li key={index}>
-                            <a href={`http://localhost/pruebaTwinpack/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
+                            <a href={`https://twinpack.com.ar/sistema/php/uploads/${file.nombre}`} target="_blank" rel="noopener noreferrer">
                                 {file.nombre}
                             </a>
                             <MdDelete

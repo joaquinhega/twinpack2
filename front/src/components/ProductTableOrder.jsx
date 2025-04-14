@@ -25,6 +25,7 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
                         let itemsArray = JSON.parse(xmlhttp1.responseText);
                         setNumberPages(Number(itemsArray.numberPages));
                         setProductsToFetch(itemsArray.items);
+                        console.log("response", itemsArray.items);
                     } catch (error) {
                         console.error("Error al analizar JSON:", error);
                     }
@@ -34,8 +35,8 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
             }
         };
         var cadenaParametros = `Sort=${encodeURIComponent(sortColumn)}&Search=${encodeURIComponent(input_search.search)}&Filter=${encodeURIComponent(input_search.filter)}&SelectedPage=${encodeURIComponent(pagination.selectedPage)}&idCuenta=${encodeURIComponent(user.idCuenta)}`;
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_itemsOrden.php', true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_itemsOrden.php', true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_itemsOrden.php', true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_itemsOrden.php', true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
     }
@@ -68,10 +69,8 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
     });
 
     const filteredByFecha = filteredByCategoria.filter((product) => {
-        // Convertimos la fecha del producto a un objeto Date
         const productDate = new Date(product.fecha_entrega);
     
-        // Convertimos las fechas de los filtros
         const desdeDate = fechaDesde ? new Date(fechaDesde) : null;
         const hastaDate = fechaHasta ? new Date(fechaHasta) : null;
         if (desdeDate && hastaDate) {
@@ -91,7 +90,6 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
     });
 
     const handleEdit = (productId) => {
-        console.log("Editando orden con ID:", productId);
         history.push({
             pathname: `/dashboard/editquotation/${productId}`,
             state: { from: "ProductTableOrder" }, 
@@ -100,15 +98,15 @@ const ProductTableOrder = ({ input_search, selectedEstado, selectedCategoria, fe
     const handleDelete = async (productId) => {
         const confirmDelete = window.confirm(`¿Estás seguro de que deseas eliminar la orden ${productId}?`);
         if (confirmDelete) {
-            console.log("Eliminando orden con ID:", productId);
             try {
                 const response = await axios.post(
-                    'http://localhost/pruebaTwinpack/php/eliminar_orden.php',
+                    'https://twinpack.com.ar/sistema/php/eliminar_orden.php',
+//                    'http://localhost/pruebaTwinpack/php/eliminar_orden.php',
                     new URLSearchParams({ id: productId })
                 );
                 if (response.data.status === "success") {
                     toast.success(`Orden ${productId} eliminado correctamente`);
-                    traerItems(); // Actualiza la tabla después de eliminar
+                    traerItems(); 
                 } else {
                     toast.error("Error al eliminar la orden");
                 }

@@ -45,8 +45,8 @@ const RegisterConfirm = () => {
         formData.append("password",inputs["password"]);
         formData.append("token",token);
         axios
-//            .post("https://twinpack.com.ar/sistema/php/cambiar_clave.php",formData)
-            .post("http://localhost/pruebaTwinpack/php/cambiar_clave.php",formData)
+            .post("https://twinpack.com.ar/sistema/php/cambiar_clave.php",formData)
+//            .post("http://localhost/pruebaTwinpack/php/cambiar_clave.php",formData)
             .then((res) => {
                 console.log("Success!",res.data);
                 toast.info(res.data);

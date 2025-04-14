@@ -29,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $proveedorId = $order['proveedor_id'];
             error_log("Obteniendo datos del proveedor con proveedorId: $proveedorId");
 
-            $proveedores = json_decode(file_get_contents('http://localhost/pruebaTwinpack/php/buscar_terceros.php'), true);
+            $proveedores = json_decode(file_get_contents('https://twinpack.com.ar/sistema/php/buscar_terceros.php'), true);
+//            $proveedores = json_decode(file_get_contents('http://localhost/pruebaTwinpack/php/buscar_terceros.php'), true);
 
             $proveedor = array_filter($proveedores, function ($item) use ($proveedorId) {
                 return $item['id'] == $proveedorId && $item['tipo_other'] == 3;

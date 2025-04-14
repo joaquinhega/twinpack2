@@ -23,8 +23,8 @@ const ClientsAdmin = () => {
     };
 
     const fetchClients = async () => {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
-        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
+        const response = await fetch('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+//        const response = await fetch('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
         const data = await response.json();
         if (data === "Debe iniciar Sesion") {
         history.push("/");
@@ -35,8 +35,8 @@ const ClientsAdmin = () => {
 
     const handleAddClient = async () => {
         if (newClient) {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/guardar_cliente.php', {
-            const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_cliente.php', {
+        const response = await fetch('https://twinpack.com.ar/sistema/php/guardar_cliente.php', {
+//            const response = await fetch('http://localhost/pruebaTwinpack/php/guardar_cliente.php', {
                 method: 'POST',
             body: new URLSearchParams({
             Cliente: newClient,
@@ -56,8 +56,8 @@ const ClientsAdmin = () => {
     const handleEditClient = async (clientId) => {
         const newClientData = prompt("Ingresa los nuevos datos para el cliente");
         if (newClientData) {
-//        const response = await fetch('https://twinpack.com.ar/sistema/php/editar_cliente.php', {
-        const response = await fetch('http://localhost/pruebaTwinpack/php/editar_cliente.php', {
+        const response = await fetch('https://twinpack.com.ar/sistema/php/editar_cliente.php', {
+//        const response = await fetch('http://localhost/pruebaTwinpack/php/editar_cliente.php', {
         method: 'POST',
             body: new URLSearchParams({
             id: clientId,
@@ -77,8 +77,8 @@ const ClientsAdmin = () => {
         const handleDeleteClient = async (clientId) => {
             const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
             if (confirmDelete) {
-//            const response = await fetch('https://twinpack.com.ar/sistema/php/eliminar_cliente.php', {
-                const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_cliente.php', {
+            const response = await fetch('https://twinpack.com.ar/sistema/php/eliminar_cliente.php', {
+//                const response = await fetch('http://localhost/pruebaTwinpack/php/eliminar_cliente.php', {
                     method: 'POST',
                 body: new URLSearchParams({
                 id: clientId,

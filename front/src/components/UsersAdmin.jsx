@@ -24,8 +24,8 @@ const UsersAdmin = () => {
                 setUserToFetch(itemsArray);
             }}
         var cadenaParametros = "";
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_usuarios.php',true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_usuarios.php',true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_usuarios.php',true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_usuarios.php',true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
         
@@ -38,17 +38,15 @@ const UsersAdmin = () => {
         xmlhttp1.onreadystatechange = function() {
             if (xmlhttp1.readyState==4 && xmlhttp1.status==200) {
                 let respuesta1 = xmlhttp1.responseText;
-                console.log(respuesta1)
                 if(respuesta1 == "Debe iniciar Sesion"){
                     history.push("/");
                 }
                 itemsArrayOthers = JSON.parse(respuesta1);
-                console.log(itemsArrayOthers);
                 setOtherToFetch(itemsArrayOthers);
             }}
         var cadenaParametros = "";
-//        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_terceros.php',true);
-        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_terceros.php',true);
+        xmlhttp1.open('POST', 'https://twinpack.com.ar/sistema/php/buscar_terceros.php',true);
+//        xmlhttp1.open('POST', 'http://localhost/pruebaTwinpack/php/buscar_terceros.php',true);
         xmlhttp1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp1.send(cadenaParametros);
         
@@ -65,8 +63,8 @@ const UsersAdmin = () => {
         const formData = new FormData();
         formData.append("Usuarios",JSON.stringify(usersEdited));
         axios
-//            .post("https://twinpack.com.ar/sistema/php/guardar_usuarios.php",formData)
-            .post("http://localhost/pruebaTwinpack/php/guardar_usuarios.php",formData)
+            .post("https://twinpack.com.ar/sistema/php/guardar_usuarios.php",formData)
+//            .post("http://localhost/pruebaTwinpack/php/guardar_usuarios.php",formData)
             .then((res) => {
                 if(res.data == "Debe iniciar Sesion"){
                     history.push("/");

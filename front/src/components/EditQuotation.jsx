@@ -23,7 +23,8 @@ const EditQuotation = () => {
     useEffect(() => {
         const fetchClientsAndProviders = async () => {
             try {
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
+                const response = await axios.post('https://twinpack.com.ar/sistema/php/buscar_terceros.php');
+//                const response = await axios.post('http://localhost/pruebaTwinpack/php/buscar_terceros.php');
                 const itemsArray = response.data;
                 setClients(itemsArray.filter(item => item.tipo_other === 2));
                 setProviders(itemsArray.filter(item => item.tipo_other === 3));
@@ -34,8 +35,9 @@ const EditQuotation = () => {
 
         const fetchOrderDetails = async () => {
             try {
-                const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
-                    orderId: orderId
+                const response = await axios.post('https://twinpack.com.ar/sistema/php/getOrderDetails.php', new URLSearchParams({
+//                    const response = await axios.post('http://localhost/pruebaTwinpack/php/getOrderDetails.php', new URLSearchParams({
+                        orderId: orderId
                 }));
                 if (response.data) {
                     setInputClient(response.data.cliente_id);
@@ -75,8 +77,9 @@ const EditQuotation = () => {
                 }
             });
 
-            const response = await axios.post("http://localhost/pruebaTwinpack/php/editar_orden.php", formData, {
-                headers: {
+            const response = await axios.post("https://twinpack.com.ar/sistema/php/editar_orden.php", formData, {
+//                const response = await axios.post("http://localhost/pruebaTwinpack/php/editar_orden.php", formData, {
+                    headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
@@ -116,7 +119,8 @@ const EditQuotation = () => {
             if (confirmDelete) {
                 try {
                     const response = await axios.post(
-                        "http://localhost/pruebaTwinpack/php/eliminar_file.php",
+                        "https://twinpack.com.ar/sistema/php/eliminar_file.php",
+//                        "http://localhost/pruebaTwinpack/php/eliminar_file.php",
                         new URLSearchParams({
                             nombre: fileToDelete.name || fileToDelete.nombre,
                             origen: fileToDelete.origen,
